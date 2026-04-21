@@ -35,6 +35,9 @@ const countdownNodes = [cdDays, cdHours, cdMinutes, cdSeconds];
 
 const musicToggle = document.getElementById("musicToggle");
 const bgMusic = document.getElementById("bgMusic");
+const textureLayer = document.querySelector(".texture");
+const auraLeft = document.querySelector(".aura-left");
+const auraRight = document.querySelector(".aura-right");
 const leafLayer = document.getElementById("leafLayer");
 const flowerLayer = document.getElementById("flowerLayer");
 const heroCloudPhoto = document.getElementById("heroCloudPhoto");
@@ -96,6 +99,8 @@ let attemptMusicStartFromGesture = async () => false;
 let wishesAutoScrollTimer = null;
 let wishesAutoPauseUntil = 0;
 let wishesRefreshTimer = null;
+let themeMotionFrame = null;
+let themeMotionSetupDone = false;
 
 let currentConfig = createInitialWeddingConfig(WEDDING_CONFIG);
 const CONFIG_CACHE_KEY = "wedding_config_cache_v2";
@@ -414,7 +419,63 @@ function normalizeThemeName(value) {
 }
 
 function applyThemeName(value) {
-  document.body.dataset.theme = normalizeThemeName(value);
+  const theme = normalizeThemeName(value);
+  document.body.dataset.theme = theme;
+  syncThemeMotion(theme);
+}
+
+function syncThemeMotion(theme) {
+  const normalized = normalizeThemeName(theme);
+  const shouldReduceMotion = prefersReducedMotion || isSmallMobileViewport;
+  document.body.classList.toggle("theme-motion-off", shouldReduceMotion);
+
+  if (normalized === "minimal") {
+    particleState.maxLeaves = isSmallMobileViewport ? 2 : (isLowPowerDevice ? 4 : 8);
+    particleState.maxFlowers = isSmallMobileViewport ? 1 : (isLowPowerDevice ? 3 : 6);
+  } else if (normalized === "royal") {
+    particleState.maxLeaves = isSmallMobileViewport ? 2 : (isLowPowerDevice ? 5 : 10);
+    particleState.maxFlowers = isSmallMobileViewport ? 4 : (isLowPowerDevice ? 8 : 16);
+  } else if (normalized === "rose") {
+    particleState.maxLeaves = isSmallMobileViewport ? 2 : (isLowPowerDevice ? 5 : 10);
+    particleState.maxFlowers = isSmallMobileViewport ? 5 : (isLowPowerDevice ? 10 : 20);
+  } else {
+    particleState.maxLeaves = isSmallMobileViewport ? 4 : (isLowPowerDevice ? 8 : 18);
+    particleState.maxFlowers = isSmallMobileViewport ? 3 : (isLowPowerDevice ? 6 : 14);
+  }
+
+  updateThemeParallax();
+}
+
+function setMotionVar(name, value) {
+  document.documentElement.style.setProperty(name, value);
+}
+
+function updateThemeParallax() {
+  if (prefersReducedMotion || isSmallMobileViewport) {
+    setMotionVar("--hero-parallax-y", "0px");
+    setMotionVar("--hero-title-parallax-y", "0px");
+    setMotionVar("--aura-left-y", "0px");
+    setMotionVar("--aura-right-y", "0px");
+    setMotionVar("--texture-y", "0px");
+    return;
+  }
+
+  const scrollY = window.scrollY || window.pageYOffset || 0;
+  const viewportH = window.innerHeight || 1;
+  const heroProgress = Math.min(scrollY / viewportH, 1.35);
+  setMotionVar("--hero-parallax-y", `${(heroProgress * 46).toFixed(2)}px`);
+  setMotionVar("--hero-title-parallax-y", `${(heroProgress * -14).toFixed(2)}px`);
+  setMotionVar("--aura-left-y", `${(scrollY * -0.035).toFixed(2)}px`);
+  setMotionVar("--aura-right-y", `${(scrollY * 0.045).toFixed(2)}px`);
+  setMotionVar("--texture-y", `${(scrollY * -0.018).toFixed(2)}px`);
+}
+
+function scheduleThemeParallax() {
+  if (themeMotionFrame) return;
+  themeMotionFrame = window.requestAnimationFrame(() => {
+    themeMotionFrame = null;
+    updateThemeParallax();
+  });
 }
 
 async function fetchWithTimeout(url, options = {}, timeoutMs = 7000) {
@@ -1574,6 +1635,14 @@ if (resepsiMapEmbed) {
   });
 }
 
+function setupThemeMotion() {
+  updateThemeParallax();
+  if (themeMotionSetupDone) return;
+  themeMotionSetupDone = true;
+  window.addEventListener("scroll", scheduleThemeParallax, { passive: true });
+  window.addEventListener("resize", scheduleThemeParallax);
+}
+
 async function initPage() {
   setLoaderMessage("Memuat data undangan dari Sheet...", false);
 
@@ -1597,6 +1666,7 @@ async function initPage() {
     setupRevealAnimation();
     setupMusicControl();
     setupVisibilityOptimization();
+    setupThemeMotion();
     setupInvitationGate();
     startTimers();
     startWishesRefresh();
