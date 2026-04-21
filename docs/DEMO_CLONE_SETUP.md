@@ -10,7 +10,8 @@ Clone baru harus langsung bisa menampilkan website undangan demo tanpa backend a
 
 `frontend/config.js` sudah dibuat demo-ready:
 
-- `RSVP_API_URL` kosong agar tidak memanggil Apps Script lama.
+- `RSVP_API_URL` kosong agar URL GAS cukup diambil dari Vercel env.
+- Runtime config dibaca dari `/api/runtime-config`.
 - `WEDDING_CONFIG` sudah berisi data demo lengkap.
 - Theme default demo memakai `rose`.
 - Gift, galeri, love story, acara, SEO, dan musik demo sudah terisi.
@@ -29,19 +30,13 @@ Jika memakai repo lama sebagai sumber, buat repo GitHub baru lalu push ke repo b
 1. Import repo ke Vercel.
 2. Deploy default branch.
 3. Setelah deploy, salin URL Vercel.
-4. Edit `frontend/config.js`:
+4. Set environment variable di Vercel:
 
-```js
-const ADMIN_CONFIG = {
-  invitationBaseUrl: "https://url-vercel-baru.vercel.app/"
-};
+```text
+INVITATION_BASE_URL=https://url-vercel-baru.vercel.app/
 ```
 
-5. Jika belum ada Apps Script, biarkan:
-
-```js
-const RSVP_API_URL = "";
-```
+5. Jika belum ada Apps Script, jangan isi `RSVP_API_URL` dulu.
 
 Dengan kondisi ini, halaman public tetap tampil dari data demo lokal, tetapi RSVP/admin server belum aktif.
 
@@ -69,19 +64,14 @@ Who has access: Anyone
 ```
 
 6. Salin URL `/exec`.
-7. Edit `frontend/config.js`:
-
-```js
-const RSVP_API_URL = "PASTE_URL_APPS_SCRIPT_BARU";
-```
-
-8. Di Vercel, set environment variable untuk share preview:
+7. Di Vercel, set environment variable:
 
 ```text
 RSVP_API_URL=PASTE_URL_APPS_SCRIPT_BARU
+INVITATION_BASE_URL=https://url-vercel-baru.vercel.app/
 ```
 
-9. Redeploy Vercel.
+8. Redeploy Vercel.
 
 ## Setup Admin Demo
 
@@ -109,12 +99,10 @@ Lalu:
 
 - [ ] Repo baru sudah dibuat.
 - [ ] Vercel project baru sudah deploy.
-- [ ] `ADMIN_CONFIG.invitationBaseUrl` sudah diganti ke URL baru.
+- [ ] `INVITATION_BASE_URL` di Vercel sudah diisi.
 - [ ] Apps Script baru sudah dibuat.
 - [ ] `ADMIN_KEY` baru sudah diset.
-- [ ] `RSVP_API_URL` frontend sudah diganti ke Apps Script baru.
 - [ ] Environment `RSVP_API_URL` di Vercel sudah diset.
 - [ ] Admin bisa simpan config.
 - [ ] Public page bisa load config dari server.
 - [ ] RSVP masuk ke Sheet baru.
-

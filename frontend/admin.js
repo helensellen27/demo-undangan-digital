@@ -1,6 +1,6 @@
-const ADMIN_RSVP_API_URL = window.RSVP_API_URL || "";
-const ADMIN_LOCAL_CONFIG = window.ADMIN_CONFIG || {};
-const ADMIN_WEDDING_CONFIG = window.WEDDING_CONFIG || {};
+let ADMIN_RSVP_API_URL = window.RSVP_API_URL || "";
+let ADMIN_LOCAL_CONFIG = window.ADMIN_CONFIG || {};
+let ADMIN_WEDDING_CONFIG = window.WEDDING_CONFIG || {};
 
 const SHARED_BANK_OPTIONS = [
   { code: "bca", name: "BCA", logoUrl: "assets/bank/bca.svg", aliases: ["bank central asia"] },
@@ -252,7 +252,9 @@ function sharedNormalizeMusicPlaylist(input, fallbackUrl = "", options = {}) {
   return tracks;
 }
 
-const adminApiClient = window.WeddingAdminApi.createAdminApiClient({ rsvpApiUrl: ADMIN_RSVP_API_URL });
+const adminApiClient = window.WeddingAdminApi.createAdminApiClient({
+  getApiUrl: () => ADMIN_RSVP_API_URL
+});
 
 const fields = {
   brandInitials: document.getElementById("brandInitials"),
@@ -1663,8 +1665,18 @@ rsvpAdminModule = window.WeddingRsvpAdminModule.createRsvpAdminModule({
   getAdminKeyOrThrow,
   setStatus,
   postApi,
-  rsvpApiUrl: ADMIN_RSVP_API_URL
+  getRsvpApiUrl: () => ADMIN_RSVP_API_URL
 });
+
+async function hydrateRuntimeConfig() {
+  if (window.RUNTIME_CONFIG_PROMISE && typeof window.RUNTIME_CONFIG_PROMISE.then === "function") {
+    await window.RUNTIME_CONFIG_PROMISE;
+  }
+  ADMIN_RSVP_API_URL = window.RSVP_API_URL || ADMIN_RSVP_API_URL;
+  ADMIN_LOCAL_CONFIG = window.ADMIN_CONFIG || ADMIN_LOCAL_CONFIG;
+  ADMIN_WEDDING_CONFIG = window.WEDDING_CONFIG || ADMIN_WEDDING_CONFIG;
+  if (apiUrlInput) apiUrlInput.value = ADMIN_RSVP_API_URL;
+}
 
 async function loadConfigFromServer(options = {}) {
   const promptBeforeOverwrite = options.promptBeforeOverwrite !== false;
@@ -2422,12 +2434,6 @@ async function loadRsvps() {
   }
 }
 
-if (!ADMIN_RSVP_API_URL || ADMIN_RSVP_API_URL.includes("PASTE_WEB_APP_URL")) {
-  setStatus(statusConn, "Isi RSVP_API_URL di config.js agar admin panel aktif.");
-} else {
-  setStatus(statusConn, "Terhubung. Konfigurasi server akan dimuat otomatis.");
-}
-
 fillForm(ADMIN_WEDDING_CONFIG);
 loadSavedAdminKey();
 loadSavedInvitationBaseUrl();
@@ -2626,7 +2632,14 @@ if (btnLoveStoryFromGallery) {
     schedulePreviewRefresh();
   });
 }
-if (ADMIN_RSVP_API_URL && !ADMIN_RSVP_API_URL.includes("PASTE_WEB_APP_URL")) {
+async function bootstrapAdminRuntime() {
+  await hydrateRuntimeConfig();
+  if (!ADMIN_RSVP_API_URL || ADMIN_RSVP_API_URL.includes("PASTE_WEB_APP_URL")) {
+    setStatus(statusConn, "Isi RSVP_API_URL di Vercel env atau config.js agar admin panel aktif.");
+    return;
+  }
+
+  setStatus(statusConn, "Terhubung. Konfigurasi server akan dimuat otomatis.");
   loadConfigFromServer({
     promptBeforeOverwrite: false,
     clearDraftAfterLoad: !savedLocalDraft
@@ -2635,3 +2648,5 @@ if (ADMIN_RSVP_API_URL && !ADMIN_RSVP_API_URL.includes("PASTE_WEB_APP_URL")) {
   loadRsvps();
   loadMusicLibrary({ markAsDirty: false });
 }
+
+bootstrapAdminRuntime();

@@ -10,9 +10,9 @@ import { createPublicConfigRuntime } from "./js/public/config.js";
 import { createGalleryController } from "./js/public/gallery.js";
 import { createMusicController } from "./js/public/music.js";
 
-const RSVP_API_URL = window.RSVP_API_URL || "";
+let RSVP_API_URL = window.RSVP_API_URL || "";
 const WEDDING_CONFIG = window.WEDDING_CONFIG || {};
-const PUBLIC_CONFIG_MODE = window.PUBLIC_CONFIG_MODE || "server";
+let PUBLIC_CONFIG_MODE = window.PUBLIC_CONFIG_MODE || "server";
 
 const form = document.getElementById("rsvpForm");
 const statusText = document.getElementById("formStatus");
@@ -480,6 +480,14 @@ function scheduleThemeParallax() {
 
 async function fetchWithTimeout(url, options = {}, timeoutMs = 7000) {
   return publicConfigRuntime.fetchWithTimeout(url, options, timeoutMs);
+}
+
+async function hydrateRuntimeConfig() {
+  if (window.RUNTIME_CONFIG_PROMISE && typeof window.RUNTIME_CONFIG_PROMISE.then === "function") {
+    await window.RUNTIME_CONFIG_PROMISE;
+  }
+  RSVP_API_URL = window.RSVP_API_URL || RSVP_API_URL;
+  PUBLIC_CONFIG_MODE = window.PUBLIC_CONFIG_MODE || PUBLIC_CONFIG_MODE;
 }
 
 async function loadServerConfig() {
@@ -1647,6 +1655,7 @@ async function initPage() {
   setLoaderMessage("Memuat data undangan dari Sheet...", false);
 
   try {
+    await hydrateRuntimeConfig();
     const ready = await loadServerConfig();
     const shouldUseServer = RSVP_API_URL && !RSVP_API_URL.includes("PASTE_WEB_APP_URL");
 

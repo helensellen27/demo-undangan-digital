@@ -1,19 +1,20 @@
 // URL Web App Google Apps Script.
-// Untuk demo/clone baru, biarkan kosong dulu agar halaman memakai data demo di bawah.
-// Setelah membuat Apps Script baru, isi dengan URL Web App /exec milik akun baru.
-const RSVP_API_URL = "https://script.google.com/macros/s/AKfycbx9PRONpFnLdV7v6HiiQdFzEYwA1EAbGmEwOu-ZbpD93PJfSAdiGiGumNagRKVVdQOD/exec";
+// Di Vercel, biarkan kosong dan isi environment variable RSVP_API_URL.
+// Untuk mode static tanpa Vercel, isi manual di sini.
+const RSVP_API_URL = "";
+const RUNTIME_CONFIG_URL = "/api/runtime-config";
 const PUBLIC_CONFIG_MODE = "local";
 
 // Pengaturan lokal khusus admin.
 // Ganti ke domain Vercel/GitHub Pages baru setelah demo dideploy.
 const ADMIN_CONFIG = {
-  invitationBaseUrl: "https://demo-undangan.vercel.app/"
+  invitationBaseUrl: ""
 };
 
 // Data demo lengkap agar clone baru langsung tampil rapi walaupun backend belum aktif.
 // Untuk produksi/client asli, konten utama tetap sebaiknya dikelola lewat admin + Apps Script.
 const WEDDING_CONFIG = {
-  invitationBaseUrl: "https://demo-undangan.vercel.app/",
+  invitationBaseUrl: "",
   brandInitials: "A & F",
   seoTitle: "Undangan Pernikahan Alya & Fajar",
   seoDescription: "Dengan bahagia kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan memberi doa restu.",
@@ -123,6 +124,40 @@ const WEDDING_CONFIG = {
 };
 
 window.RSVP_API_URL = RSVP_API_URL;
+window.RUNTIME_CONFIG_URL = RUNTIME_CONFIG_URL;
 window.PUBLIC_CONFIG_MODE = PUBLIC_CONFIG_MODE;
 window.ADMIN_CONFIG = ADMIN_CONFIG;
 window.WEDDING_CONFIG = WEDDING_CONFIG;
+
+window.RUNTIME_CONFIG_PROMISE = (async () => {
+  const canFetchRuntime = typeof fetch === "function"
+    && typeof window !== "undefined"
+    && window.location
+    && /^https?:$/i.test(window.location.protocol);
+
+  if (!canFetchRuntime || !RUNTIME_CONFIG_URL) return null;
+
+  try {
+    const response = await fetch(RUNTIME_CONFIG_URL, { cache: "no-store" });
+    const result = await response.json();
+    if (!response.ok || !result || !result.success) return null;
+
+    if (result.rsvpApiUrl) window.RSVP_API_URL = String(result.rsvpApiUrl).trim();
+    if (result.publicConfigMode) window.PUBLIC_CONFIG_MODE = String(result.publicConfigMode).trim();
+    if (result.invitationBaseUrl) {
+      const invitationBaseUrl = String(result.invitationBaseUrl).trim();
+      window.ADMIN_CONFIG = {
+        ...(window.ADMIN_CONFIG || {}),
+        invitationBaseUrl
+      };
+      window.WEDDING_CONFIG = {
+        ...(window.WEDDING_CONFIG || {}),
+        invitationBaseUrl
+      };
+    }
+
+    return result;
+  } catch (error) {
+    return null;
+  }
+})();

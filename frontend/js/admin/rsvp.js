@@ -7,6 +7,9 @@
       postApi,
       rsvpApiUrl
     } = options;
+    const getRsvpApiUrl = typeof options.getRsvpApiUrl === "function"
+      ? options.getRsvpApiUrl
+      : () => rsvpApiUrl;
 
     const state = {
       rows: [],
@@ -155,7 +158,7 @@
         setStatus(elements.statusRsvps, `Berhasil memuat ${state.rows.length} data RSVP (total ${state.paging.total})`);
       } catch (error) {
         try {
-          const fallbackUrl = new URL(rsvpApiUrl);
+          const fallbackUrl = new URL(getRsvpApiUrl());
           fallbackUrl.searchParams.set("action", "wishes");
           fallbackUrl.searchParams.set("limit", String(Number((elements.rsvpPageSize && elements.rsvpPageSize.value) || 20)));
           fallbackUrl.searchParams.set("_ts", String(Date.now()));
