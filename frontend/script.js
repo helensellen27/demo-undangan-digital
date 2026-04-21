@@ -1124,21 +1124,17 @@ function applyWeddingConfig() {
   renderGalleryGrid(currentConfig.galleryPhotos);
   renderGiftSection();
 
-  if (Array.isArray(currentConfig.loveStoryPhotos)) {
-    currentConfig.loveStoryPhotos.slice(0, 3).forEach((src, index) => {
-      const img = document.getElementById(`storyPhoto${index + 1}`);
-      applyImageWithFallback(img, src, {
-        purpose: "story",
-        fallbackSrc: `assets/photos/foto-${index + 1}.svg`
-      });
-    });
-  }
-
   const storyItems = Array.isArray(currentConfig.loveStoryItems) && currentConfig.loveStoryItems.length
     ? currentConfig.loveStoryItems
     : (Array.isArray(WEDDING_CONFIG.loveStoryItems) ? WEDDING_CONFIG.loveStoryItems : []);
   storyItems.slice(0, 3).forEach((item, index) => {
     const i = index + 1;
+    const storyPhoto = String((item && item.photo) || (currentConfig.loveStoryPhotos && currentConfig.loveStoryPhotos[index]) || "").trim();
+    const img = document.getElementById(`storyPhoto${i}`);
+    applyImageWithFallback(img, storyPhoto, {
+      purpose: "story",
+      fallbackSrc: `assets/photos/foto-${i}.svg`
+    });
     setText(`storyYear${i}`, formatStoryDateDisplay(item && item.date));
     setText(`storyTitle${i}`, item && item.title);
     setText(`storyDesc${i}`, cleanStoryDescription(item && item.description));

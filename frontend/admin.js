@@ -297,12 +297,15 @@ const fields = {
   marriageDoaReference: document.getElementById("marriageDoaReference"),
   storyDate1: document.getElementById("storyDate1"),
   storyTitle1: document.getElementById("storyTitle1"),
+  storyPhoto1: document.getElementById("storyPhoto1"),
   storyDesc1: document.getElementById("storyDesc1"),
   storyDate2: document.getElementById("storyDate2"),
   storyTitle2: document.getElementById("storyTitle2"),
+  storyPhoto2: document.getElementById("storyPhoto2"),
   storyDesc2: document.getElementById("storyDesc2"),
   storyDate3: document.getElementById("storyDate3"),
   storyTitle3: document.getElementById("storyTitle3"),
+  storyPhoto3: document.getElementById("storyPhoto3"),
   storyDesc3: document.getElementById("storyDesc3"),
   loveStoryPhotos: document.getElementById("loveStoryPhotos"),
   galleryPhotos: document.getElementById("galleryPhotos"),
@@ -1422,6 +1425,7 @@ function readConfigFromForm() {
   const loveStoryItems = [1, 2, 3].map((index) => ({
     date: fields[`storyDate${index}`].value.trim(),
     title: fields[`storyTitle${index}`].value.trim(),
+    photo: fields[`storyPhoto${index}`].value.trim() || storyPhotos[index - 1] || "",
     description: fields[`storyDesc${index}`].value.trim()
   }));
 
@@ -1600,6 +1604,7 @@ function fillForm(config) {
     const item = storyItems[index - 1] || {};
     fields[`storyDate${index}`].value = String(item.date || "");
     fields[`storyTitle${index}`].value = String(item.title || "");
+    fields[`storyPhoto${index}`].value = String(item.photo || (safeConfig.loveStoryPhotos && safeConfig.loveStoryPhotos[index - 1]) || "");
     fields[`storyDesc${index}`].value = String(item.description || "");
   });
 

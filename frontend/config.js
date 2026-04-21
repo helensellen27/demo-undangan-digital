@@ -72,16 +72,19 @@ const WEDDING_CONFIG = {
     {
       date: "2021",
       title: "Pertama Bertemu",
+      photo: "assets/photos/demo-photo-1.jpg",
       description: "Kami bertemu dalam sebuah kegiatan komunitas dan mulai saling mengenal lebih dekat."
     },
     {
       date: "2023",
       title: "Lamaran",
+      photo: "assets/photos/demo-photo-2.jpg",
       description: "Dengan restu keluarga, kami melangkah ke tahap yang lebih serius."
     },
     {
       date: "2026",
       title: "Hari Pernikahan",
+      photo: "assets/photos/demo-photo-3.jpg",
       description: "InsyaAllah kami memulai perjalanan rumah tangga dengan penuh doa dan harapan."
     }
   ],
