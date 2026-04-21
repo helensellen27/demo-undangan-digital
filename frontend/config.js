@@ -2,6 +2,7 @@
 // Untuk demo/clone baru, biarkan kosong dulu agar halaman memakai data demo di bawah.
 // Setelah membuat Apps Script baru, isi dengan URL Web App /exec milik akun baru.
 const RSVP_API_URL = "https://script.google.com/macros/s/AKfycbx9PRONpFnLdV7v6HiiQdFzEYwA1EAbGmEwOu-ZbpD93PJfSAdiGiGumNagRKVVdQOD/exec";
+const PUBLIC_CONFIG_MODE = "local";
 
 // Pengaturan lokal khusus admin.
 // Ganti ke domain Vercel/GitHub Pages baru setelah demo dideploy.
@@ -122,5 +123,6 @@ const WEDDING_CONFIG = {
 };
 
 window.RSVP_API_URL = RSVP_API_URL;
+window.PUBLIC_CONFIG_MODE = PUBLIC_CONFIG_MODE;
 window.ADMIN_CONFIG = ADMIN_CONFIG;
 window.WEDDING_CONFIG = WEDDING_CONFIG;

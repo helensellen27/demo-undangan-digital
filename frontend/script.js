@@ -12,6 +12,7 @@ import { createMusicController } from "./js/public/music.js";
 
 const RSVP_API_URL = window.RSVP_API_URL || "";
 const WEDDING_CONFIG = window.WEDDING_CONFIG || {};
+const PUBLIC_CONFIG_MODE = window.PUBLIC_CONFIG_MODE || "server";
 
 const form = document.getElementById("rsvpForm");
 const statusText = document.getElementById("formStatus");
@@ -421,6 +422,10 @@ async function fetchWithTimeout(url, options = {}, timeoutMs = 7000) {
 }
 
 async function loadServerConfig() {
+  if (PUBLIC_CONFIG_MODE === "local") {
+    return true;
+  }
+
   const result = await publicConfigRuntime.loadServerConfig({
     currentConfig,
     mergeConfig,
