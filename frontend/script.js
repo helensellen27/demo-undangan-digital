@@ -101,11 +101,16 @@ let wishesAutoPauseUntil = 0;
 let wishesRefreshTimer = null;
 let themeMotionFrame = null;
 let themeMotionSetupDone = false;
+let revealAnimationSetupDone = false;
+let musicControlSetupDone = false;
+let visibilityOptimizationSetupDone = false;
+let invitationGateSetupDone = false;
 
 let currentConfig = createInitialWeddingConfig(WEDDING_CONFIG);
 const CONFIG_CACHE_KEY = "wedding_config_cache_v2";
 const CONFIG_CACHE_TTL_MS = 1000 * 30;
 const ADMIN_PREVIEW_DRAFT_KEY = "wedding_admin_preview_draft_v1";
+const elementCache = new Map();
 const publicConfigRuntime = createPublicConfigRuntime({
   cacheKey: CONFIG_CACHE_KEY,
   cacheTtlMs: CONFIG_CACHE_TTL_MS
@@ -166,14 +171,21 @@ function healMisplacedPhotoConfig(config) {
   return sharedHealMisplacedPhotoConfig(config, WEDDING_CONFIG);
 }
 
+function getCachedElement(id) {
+  if (!elementCache.has(id)) {
+    elementCache.set(id, document.getElementById(id));
+  }
+  return elementCache.get(id);
+}
+
 function setText(id, value) {
-  const el = document.getElementById(id);
+  const el = getCachedElement(id);
   if (!el) return;
   el.textContent = String(value || "");
 }
 
 function setBrandMonogram(value) {
-  const el = document.getElementById("brandInitials");
+  const el = getCachedElement("brandInitials");
   if (!el) return;
 
   const raw = String(value || "").trim();
@@ -198,7 +210,7 @@ function setBrandMonogram(value) {
 }
 
 function setAnimatedName(id, value, baseDelayMs = 0) {
-  const el = document.getElementById(id);
+  const el = getCachedElement(id);
   if (!el) return;
 
   const text = String(value || "").trim();
@@ -231,12 +243,12 @@ function setAnimatedName(id, value, baseDelayMs = 0) {
 }
 
 function setLink(id, value) {
-  const el = document.getElementById(id);
+  const el = getCachedElement(id);
   if (el && value) el.href = value;
 }
 
 function setInternalAnchorLink(id, hashTarget) {
-  const el = document.getElementById(id);
+  const el = getCachedElement(id);
   if (!el) return;
   el.href = hashTarget || "#";
   el.removeAttribute("target");
@@ -244,7 +256,7 @@ function setInternalAnchorLink(id, hashTarget) {
 }
 
 function setHtml(id, value) {
-  const el = document.getElementById(id);
+  const el = getCachedElement(id);
   if (el && value) el.innerHTML = value;
 }
 
@@ -268,7 +280,7 @@ function formatEventDateHtml(value) {
 }
 
 function setIframeSrc(id, value) {
-  const el = document.getElementById(id);
+  const el = getCachedElement(id);
   if (el && value) el.src = value;
 }
 
@@ -1155,6 +1167,9 @@ function setupInvitationGate() {
     return;
   }
 
+  if (invitationGateSetupDone) return;
+  invitationGateSetupDone = true;
+
   openInvitationBtn.addEventListener("click", () => {
     attemptMusicStartFromGesture().catch(() => {});
     invitationGate.classList.add("is-opening");
@@ -1407,6 +1422,9 @@ function updateCountdown() {
 }
 
 function setupRevealAnimation() {
+  if (revealAnimationSetupDone) return;
+  revealAnimationSetupDone = true;
+
   const sections = document.querySelectorAll(".reveal");
 
   const observer = new IntersectionObserver(
@@ -1425,6 +1443,9 @@ function setupRevealAnimation() {
 }
 
 function setupMusicControl() {
+  if (musicControlSetupDone) return;
+  musicControlSetupDone = true;
+
   const runtime = musicController.setupMusicControl();
   if (runtime && typeof runtime.startMusicFromGesture === "function") {
     attemptMusicStartFromGesture = runtime.startMusicFromGesture;
@@ -1513,6 +1534,9 @@ function stopTimers() {
 }
 
 function setupVisibilityOptimization() {
+  if (visibilityOptimizationSetupDone) return;
+  visibilityOptimizationSetupDone = true;
+
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
       stopTimers();
