@@ -105,6 +105,7 @@ let revealAnimationSetupDone = false;
 let musicControlSetupDone = false;
 let visibilityOptimizationSetupDone = false;
 let invitationGateSetupDone = false;
+let pageContentApplied = false;
 
 let currentConfig = createInitialWeddingConfig(WEDDING_CONFIG);
 const CONFIG_CACHE_KEY = "wedding_config_cache_v2";
@@ -510,7 +511,9 @@ async function loadServerConfig() {
   const result = await publicConfigRuntime.loadServerConfig({
     currentConfig,
     mergeConfig,
-    rsvpApiUrl: RSVP_API_URL
+    rsvpApiUrl: RSVP_API_URL,
+    preferCachedConfig: true,
+    onFreshConfig: applyFreshServerConfig
   });
   currentConfig = result.config;
   const previewDraft = readAdminPreviewDraft();
@@ -518,6 +521,20 @@ async function loadServerConfig() {
     currentConfig = mergeConfig(currentConfig, previewDraft);
   }
   return result.ok;
+}
+
+function applyFreshServerConfig(config) {
+  currentConfig = config;
+  const previewDraft = readAdminPreviewDraft();
+  if (previewDraft) {
+    currentConfig = mergeConfig(currentConfig, previewDraft);
+  }
+
+  if (!pageContentApplied) return;
+  applyWeddingConfig();
+  applyGuestName();
+  syncWishesMobileState();
+  updateCountdown();
 }
 
 function readCachedConfig() {
@@ -1688,6 +1705,7 @@ async function initPage() {
     if (shouldKeepLoading) return;
 
     applyWeddingConfig();
+    pageContentApplied = true;
     applyGuestName();
     loadWishes();
     syncWishesMobileState();
