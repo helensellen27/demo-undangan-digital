@@ -1,0 +1,144 @@
+body[data-theme="minimal"] {
+  --bg: #f3f4f0;
+  --paper: #ffffff;
+  --ink: #171914;
+  --muted: #5e6259;
+  --sage: #485640;
+  --sage-soft: #dde3d8;
+  --champagne: #7e653f;
+  --line: rgba(72, 86, 64, 0.28);
+  --shadow: 0 22px 46px rgba(28, 30, 24, 0.12);
+  --body-bg:
+    radial-gradient(820px 560px at 50% 12%, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0) 72%),
+    linear-gradient(170deg, #ffffff, #eceee8);
+  --texture-opacity: 0.12;
+  --sparkle-opacity: 0;
+  --aura-left-color: #e7e8e2;
+  --aura-right-color: #dad7cc;
+  --hero-photo-opacity: 0.24;
+  --hero-photo-filter: saturate(0.28) brightness(1.08) contrast(1.08);
+  --font-body: "Manrope", sans-serif;
+  --font-heading: "Cormorant Garamond", serif;
+  --font-display: "Great Vibes", cursive;
+  --font-accent: "Manrope", sans-serif;
+  font-size: 16px;
+}
+
+body[data-theme="minimal"] h1 {
+  font-weight: 500;
+}
+
+body[data-theme="minimal"] .flower::before,
+body[data-theme="minimal"] .flower::after {
+  display: none;
+}
+
+body[data-theme="minimal"] .flower,
+body[data-theme="minimal"] .leaf {
+  opacity: 0.28;
+  filter: grayscale(0.6);
+}
+
+body[data-theme="minimal"] .leaf {
+  background: linear-gradient(135deg, #8a9485, #cfd5c7);
+}
+
+body[data-theme="minimal"] .texture,
+body[data-theme="minimal"] .aura {
+  display: none;
+}
+
+body[data-theme="minimal"] .hero-cloud-photo {
+  border-radius: 18px;
+  box-shadow: none;
+}
+
+body[data-theme="minimal"] .brand {
+  border-radius: 12px;
+  color: #2e463a;
+  font-size: 1.54rem;
+  line-height: 1.18;
+  box-shadow: none;
+}
+
+body[data-theme="minimal"] .brand-sep {
+  color: #7f8d83;
+}
+
+body[data-theme="minimal"] .hero-title-block {
+  max-width: 720px;
+}
+
+body[data-theme="minimal"] .hero-name {
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+body[data-theme="minimal"] .hero-name .char {
+  animation-duration: 0.24s;
+}
+
+body[data-theme="minimal"] .card,
+body[data-theme="minimal"] .event-item,
+body[data-theme="minimal"] .gift-account-card,
+body[data-theme="minimal"] .countdown-item {
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+body[data-theme="minimal"] .section {
+  max-width: 720px;
+  margin-inline: auto;
+  padding-top: clamp(56px, 8vw, 92px);
+  padding-bottom: clamp(56px, 8vw, 92px);
+}
+
+body[data-theme="minimal"] .section + .section {
+  border-top: 1px solid rgba(72, 86, 64, 0.14);
+}
+
+body[data-theme="minimal"] .section h2::after {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 1px;
+  margin-top: 18px;
+  background: rgba(72, 86, 64, 0.46);
+}
+
+body[data-theme="minimal"] .card,
+body[data-theme="minimal"] .gallery-section {
+  background: transparent;
+  border-left: 0;
+  border-right: 0;
+}
+
+body[data-theme="minimal"] .mempelai-intro {
+  border-top: 1px solid rgba(72, 86, 64, 0.2);
+}
+
+body[data-theme="minimal"] #giftSection,
+body[data-theme="minimal"] #rsvp.card {
+  background: rgba(255, 255, 255, 0.48);
+}
+
+body[data-theme="minimal"] .gallery-item,
+body[data-theme="minimal"] .story-moon {
+  border-radius: 10px;
+}
+
+body[data-theme="minimal"] .rsvp-pill-row span,
+body[data-theme="minimal"] .gift-category-tab,
+body[data-theme="minimal"] .gift-copy-btn {
+  border-radius: 8px;
+}
+
+body[data-theme="minimal"] .btn,
+body[data-theme="minimal"] .gate-open-btn,
+body[data-theme="minimal"] .gift-copy-btn,
+body[data-theme="minimal"] .rsvp-submit {
+  color: #ffffff;
+  background: linear-gradient(135deg, #485640, #6e7b66);
+  border-color: rgba(72, 86, 64, 0.28);
+  box-shadow: none;
+}

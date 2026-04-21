@@ -27,7 +27,7 @@ const SHARED_EWALLET_CATALOG = Object.fromEntries(SHARED_EWALLET_OPTIONS.map((it
 
 function sharedNormalizeThemeName(value) {
   const theme = String(value || "").trim().toLowerCase();
-  return ["botanical", "rose", "royal", "minimal"].includes(theme) ? theme : "botanical";
+  return ["botanical", "rose", "royal", "minimal", "luxury-gold"].includes(theme) ? theme : "botanical";
 }
 
 function parseJsonValue(input, fallback) {

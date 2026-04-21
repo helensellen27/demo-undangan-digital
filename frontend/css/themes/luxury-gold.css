@@ -1,0 +1,322 @@
+body[data-theme="luxury-gold"] {
+  --bg: #f6f1e7;
+  --paper: #fffdf8;
+  --ink: #2b241b;
+  --muted: #776c5e;
+  --sage: #8a7542;
+  --sage-soft: #eee5d1;
+  --champagne: #c6a45b;
+  --line: rgba(198, 164, 91, 0.34);
+  --shadow: 0 28px 58px rgba(83, 67, 42, 0.14);
+  --body-bg:
+    radial-gradient(circle at 14% 10%, rgba(255, 255, 255, 0.82) 0 26px, transparent 27px),
+    radial-gradient(circle at 84% 16%, rgba(231, 220, 192, 0.54) 0 22px, transparent 23px),
+    radial-gradient(860px 620px at 50% 12%, rgba(245, 238, 221, 0.74) 0%, rgba(245, 238, 221, 0) 72%),
+    linear-gradient(170deg, #fffdf8, #f2eadb 62%, #ede2ce);
+  --texture-opacity: 0.2;
+  --sparkle-opacity: 0.34;
+  --aura-left-color: #d9c8a3;
+  --aura-right-color: #c6a45b;
+  --hero-photo-opacity: 0.22;
+  --hero-photo-filter: saturate(0.72) brightness(1.05) contrast(1.02);
+  --font-body: "Open Sans", sans-serif;
+  --font-heading: "Forum", serif;
+  --font-display: "Mr Dafoe", cursive;
+  --font-accent: "Open Sans", sans-serif;
+}
+
+body[data-theme="luxury-gold"] .brand {
+  color: #8a7542;
+  font-size: 1.9rem;
+  line-height: 1.1;
+  padding: 4px 10px 5px;
+  border-radius: 999px;
+  background: rgba(255, 253, 248, 0.72);
+  box-shadow:
+    inset 0 0 0 1px rgba(198, 164, 91, 0.22),
+    0 14px 34px rgba(83, 67, 42, 0.12);
+}
+
+body[data-theme="luxury-gold"] .brand-sep {
+  color: #c6a45b;
+  margin-inline: 0.02em;
+}
+
+body[data-theme="luxury-gold"] .gate-envelope {
+  color: #2b241b;
+  background:
+    linear-gradient(145deg, rgba(255, 253, 248, 0.96), rgba(242, 234, 219, 0.94)),
+    radial-gradient(circle at 12% 8%, rgba(198, 164, 91, 0.18), transparent 30%);
+  border-color: rgba(198, 164, 91, 0.28);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.74),
+    0 34px 74px rgba(83, 67, 42, 0.16);
+}
+
+body[data-theme="luxury-gold"] .gate-envelope::before {
+  background: linear-gradient(145deg, rgba(232, 219, 188, 0.48), rgba(255, 253, 248, 0.14));
+  border-color: rgba(198, 164, 91, 0.2);
+}
+
+body[data-theme="luxury-gold"] .gate-overline,
+body[data-theme="luxury-gold"] .gate-envelope p,
+body[data-theme="luxury-gold"] .gate-recipient p {
+  color: #776c5e;
+}
+
+body[data-theme="luxury-gold"] .gate-envelope h2,
+body[data-theme="luxury-gold"] .gate-recipient h3 {
+  color: #8a7542;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-shadow: 0 12px 28px rgba(198, 164, 91, 0.14);
+}
+
+body[data-theme="luxury-gold"] .hero-name {
+  color: #8a7542;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-shadow: 0 12px 28px rgba(198, 164, 91, 0.14);
+}
+
+body[data-theme="luxury-gold"] .section h2 {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+body[data-theme="luxury-gold"] .section h2::after {
+  content: "";
+  display: block;
+  width: min(210px, 50vw);
+  height: 7px;
+  margin-top: 16px;
+  background:
+    radial-gradient(circle at 50% 50%, #c6a45b 0 4px, transparent 5px),
+    linear-gradient(90deg, transparent, rgba(198, 164, 91, 0.74), transparent);
+}
+
+body[data-theme="luxury-gold"] .card,
+body[data-theme="luxury-gold"] .gallery-section {
+  outline: 1px solid rgba(198, 164, 91, 0.28);
+  outline-offset: -12px;
+}
+
+body[data-theme="luxury-gold"] .card::after,
+body[data-theme="luxury-gold"] .gallery-section::after {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  pointer-events: none;
+  border: 1px solid rgba(255, 253, 248, 0.72);
+  border-radius: inherit;
+}
+
+body[data-theme="luxury-gold"] #giftSection {
+  background:
+    radial-gradient(circle at 88% 10%, rgba(198, 164, 91, 0.18), transparent 26%),
+    linear-gradient(180deg, rgba(255, 253, 248, 0.97), rgba(250, 246, 238, 0.93));
+}
+
+body[data-theme="luxury-gold"] #rsvp.card {
+  border-color: rgba(198, 164, 91, 0.42);
+}
+
+body[data-theme="luxury-gold"] .gate-recipient {
+  background: rgba(255, 253, 248, 0.72);
+  border-color: rgba(198, 164, 91, 0.26);
+}
+
+body[data-theme="luxury-gold"] .hero-title-block {
+  color: #2b241b;
+  background:
+    radial-gradient(circle at 14% 16%, rgba(198, 164, 91, 0.12) 0 18px, transparent 19px),
+    linear-gradient(180deg, rgba(255, 253, 248, 0.82), rgba(255, 253, 248, 0.42));
+  border: 1px solid rgba(198, 164, 91, 0.18);
+  box-shadow: 0 22px 54px rgba(83, 67, 42, 0.12);
+}
+
+body[data-theme="luxury-gold"] .amp,
+body[data-theme="luxury-gold"] .subtitle {
+  color: #a98b49;
+}
+
+body[data-theme="luxury-gold"] .hero-cloud-photo {
+  border-radius: 18px;
+  box-shadow:
+    0 0 0 1px rgba(198, 164, 91, 0.24),
+    0 28px 74px rgba(83, 67, 42, 0.14);
+}
+
+body[data-theme="luxury-gold"] .card,
+body[data-theme="luxury-gold"] .gallery-section,
+body[data-theme="luxury-gold"] .map-card,
+body[data-theme="luxury-gold"] .timeline article,
+body[data-theme="luxury-gold"] .faith-block {
+  color: #2b241b;
+  border-radius: 12px;
+  border-color: rgba(198, 164, 91, 0.28);
+  background:
+    radial-gradient(circle at 12% 10%, rgba(198, 164, 91, 0.1) 0 20px, transparent 21px),
+    radial-gradient(circle at 90% 12%, rgba(139, 158, 116, 0.12) 0 28px, transparent 29px),
+    linear-gradient(180deg, rgba(255, 253, 248, 0.97), rgba(250, 246, 238, 0.93));
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.72),
+    var(--shadow);
+}
+
+body[data-theme="luxury-gold"] .event-item,
+body[data-theme="luxury-gold"] .gift-account-card,
+body[data-theme="luxury-gold"] .countdown-item,
+body[data-theme="luxury-gold"] .profile {
+  color: #2b241b;
+  border-radius: 10px;
+  border-color: rgba(198, 164, 91, 0.24);
+  background:
+    linear-gradient(180deg, rgba(255, 253, 248, 0.92), rgba(245, 239, 226, 0.84));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.72);
+}
+
+body[data-theme="luxury-gold"] .event-item::before {
+  background:
+    radial-gradient(circle, #c6a45b 0 3px, transparent 4px) 0 50% / 14px 8px repeat-x;
+  height: 8px;
+  opacity: 0.84;
+}
+
+body[data-theme="luxury-gold"] .section-kicker,
+body[data-theme="luxury-gold"] .event-tag,
+body[data-theme="luxury-gold"] .event-label,
+body[data-theme="luxury-gold"] .countdown span,
+body[data-theme="luxury-gold"] .year,
+body[data-theme="luxury-gold"] .quran-ref,
+body[data-theme="luxury-gold"] .gift-category-hint {
+  color: #a98b49;
+}
+
+body[data-theme="luxury-gold"] .lead,
+body[data-theme="luxury-gold"] .event-date-day,
+body[data-theme="luxury-gold"] .event-meta p,
+body[data-theme="luxury-gold"] .timeline-content p:last-child,
+body[data-theme="luxury-gold"] .gift-section .lead,
+body[data-theme="luxury-gold"] .closing-section .lead,
+body[data-theme="luxury-gold"] .rsvp-mode-hint,
+body[data-theme="luxury-gold"] .faith-text,
+body[data-theme="luxury-gold"] .gift-account-holder,
+body[data-theme="luxury-gold"] .profile p {
+  color: #776c5e;
+}
+
+body[data-theme="luxury-gold"] h2,
+body[data-theme="luxury-gold"] .profile h3,
+body[data-theme="luxury-gold"] .event-date-main,
+body[data-theme="luxury-gold"] .event-meta p span:last-child,
+body[data-theme="luxury-gold"] .gift-account-number,
+body[data-theme="luxury-gold"] .gift-bank-name,
+body[data-theme="luxury-gold"] .countdown strong,
+body[data-theme="luxury-gold"] .timeline-content h3,
+body[data-theme="luxury-gold"] .faith-title,
+body[data-theme="luxury-gold"] .quran-ar,
+body[data-theme="luxury-gold"] .rsvp-form label {
+  color: #2b241b;
+}
+
+body[data-theme="luxury-gold"] .event-tag,
+body[data-theme="luxury-gold"] .rsvp-pill-row span,
+body[data-theme="luxury-gold"] .gift-category-tab {
+  background: rgba(198, 164, 91, 0.1);
+  border-color: rgba(198, 164, 91, 0.24);
+}
+
+body[data-theme="luxury-gold"] .text-link,
+body[data-theme="luxury-gold"] .event-utility a,
+body[data-theme="luxury-gold"] .hero-text-link {
+  color: #8a7542;
+  text-shadow: none;
+}
+
+body[data-theme="luxury-gold"] .map-frame-wrap,
+body[data-theme="luxury-gold"] .map-placeholder {
+  background:
+    radial-gradient(circle at 20% 18%, rgba(198, 164, 91, 0.14), transparent 28%),
+    linear-gradient(135deg, rgba(255, 253, 248, 0.96), rgba(244, 238, 226, 0.96));
+}
+
+body[data-theme="luxury-gold"] .map-placeholder {
+  color: #776c5e;
+}
+
+body[data-theme="luxury-gold"] .timeline::before {
+  background: linear-gradient(180deg, rgba(198, 164, 91, 0.9), rgba(198, 164, 91, 0.18));
+  box-shadow: 0 0 0 6px rgba(198, 164, 91, 0.08);
+}
+
+body[data-theme="luxury-gold"] .timeline article::before {
+  background: linear-gradient(135deg, #fffdf8, #c6a45b);
+  border-color: rgba(255, 253, 248, 0.98);
+  box-shadow: 0 0 0 6px rgba(198, 164, 91, 0.18);
+}
+
+body[data-theme="luxury-gold"] .btn,
+body[data-theme="luxury-gold"] .gate-open-btn,
+body[data-theme="luxury-gold"] .gift-copy-btn,
+body[data-theme="luxury-gold"] .rsvp-submit {
+  color: #fffdf8;
+  background: linear-gradient(135deg, #8a7542, #c6a45b);
+  border-color: rgba(198, 164, 91, 0.42);
+  box-shadow: 0 14px 32px rgba(83, 67, 42, 0.18);
+}
+
+body[data-theme="luxury-gold"] .btn:hover,
+body[data-theme="luxury-gold"] .gift-copy-btn:hover {
+  box-shadow: 0 16px 38px rgba(83, 67, 42, 0.24);
+}
+
+body[data-theme="luxury-gold"] input,
+body[data-theme="luxury-gold"] select,
+body[data-theme="luxury-gold"] textarea {
+  color: #2b241b;
+  background: rgba(255, 253, 248, 0.86);
+  border-color: rgba(198, 164, 91, 0.28);
+}
+
+body[data-theme="luxury-gold"] input::placeholder,
+body[data-theme="luxury-gold"] textarea::placeholder {
+  color: rgba(119, 108, 94, 0.68);
+}
+
+body[data-theme="luxury-gold"] .story-moon,
+body[data-theme="luxury-gold"] .gallery-item {
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 1px rgba(198, 164, 91, 0.22),
+    0 22px 48px rgba(83, 67, 42, 0.14);
+}
+
+body[data-theme="luxury-gold"] .flower {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, #c6a45b 0 18%, transparent 19%),
+    radial-gradient(circle at 48% 20%, rgba(255, 253, 248, 0.98) 0 24%, transparent 25%),
+    radial-gradient(circle at 78% 50%, rgba(255, 253, 248, 0.92) 0 24%, transparent 25%),
+    radial-gradient(circle at 50% 80%, rgba(255, 253, 248, 0.96) 0 24%, transparent 25%),
+    radial-gradient(circle at 20% 50%, rgba(255, 253, 248, 0.92) 0 24%, transparent 25%);
+  box-shadow: 0 0 18px rgba(198, 164, 91, 0.34);
+}
+
+body[data-theme="luxury-gold"] .flower::before,
+body[data-theme="luxury-gold"] .flower::after {
+  display: none;
+}
+
+body[data-theme="luxury-gold"] .leaf {
+  opacity: 0.32;
+  filter: sepia(0.42) saturate(0.82) brightness(1.08);
+}
+
+@media (max-width: 520px) {
+  body[data-theme="luxury-gold"] .section h2 {
+    letter-spacing: 0.055em;
+  }
+}

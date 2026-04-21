@@ -5,7 +5,7 @@ import { normalizeMusicPlaybackMode, normalizeMusicPlaylist } from "./schema/mus
 
 export function normalizeThemeName(value) {
   const theme = String(value || "").trim().toLowerCase();
-  return ["botanical", "rose", "royal", "minimal"].includes(theme) ? theme : "botanical";
+  return ["botanical", "rose", "royal", "minimal", "luxury-gold"].includes(theme) ? theme : "botanical";
 }
 
 export function createInitialWeddingConfig(defaultConfig = {}) {

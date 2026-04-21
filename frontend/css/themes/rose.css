@@ -1,0 +1,319 @@
+body[data-theme="rose"] {
+  --bg: #ead1d2;
+  --paper: #fffaf8;
+  --ink: #34302f;
+  --muted: #7c6b68;
+  --sage: #b56f78;
+  --sage-soft: #efd9da;
+  --champagne: #c5a46f;
+  --line: rgba(181, 111, 120, 0.28);
+  --shadow: 0 24px 52px rgba(99, 67, 67, 0.16);
+  --body-bg:
+    radial-gradient(900px 620px at 50% 12%, rgba(234, 209, 210, 0.64) 0%, rgba(234, 209, 210, 0) 72%),
+    radial-gradient(760px 520px at 84% 94%, rgba(197, 164, 111, 0.18) 0%, rgba(197, 164, 111, 0) 72%),
+    linear-gradient(170deg, #fffaf8, #ead1d2);
+  --sparkle-opacity: 0.26;
+  --aura-left-color: #d8aeb2;
+  --aura-right-color: #c5a46f;
+  --hero-photo-opacity: 0.28;
+  --hero-photo-filter: saturate(0.74) brightness(1.07) contrast(1.02);
+  --font-body: "Manrope", sans-serif;
+  --font-heading: "Cormorant Garamond", serif;
+  --font-display: "Great Vibes", cursive;
+  --font-accent: "Manrope", sans-serif;
+}
+
+body[data-theme="rose"] .section h2 {
+  font-weight: 600;
+}
+
+body[data-theme="rose"] .section-title,
+body[data-theme="rose"] .section h2 {
+  letter-spacing: 0.06em;
+}
+
+body[data-theme="rose"] .section h2::after {
+  content: "";
+  display: block;
+  width: min(150px, 42vw);
+  height: 3px;
+  margin-top: 14px;
+  background: linear-gradient(90deg, rgba(181, 111, 120, 0.74), rgba(197, 164, 111, 0.36), transparent);
+  border-radius: 999px;
+}
+
+body[data-theme="rose"] .card,
+body[data-theme="rose"] .gallery-section {
+  overflow: hidden;
+}
+
+body[data-theme="rose"] .card::after,
+body[data-theme="rose"] .gallery-section::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  pointer-events: none;
+  border: 1px solid rgba(181, 111, 120, 0.12);
+  border-radius: inherit;
+}
+
+body[data-theme="rose"] .mempelai-intro {
+  background:
+    radial-gradient(circle at 88% 12%, rgba(181, 111, 120, 0.18), transparent 30%),
+    linear-gradient(180deg, rgba(255, 250, 248, 0.99), rgba(255, 255, 255, 0.96));
+}
+
+body[data-theme="rose"] #acara.card {
+  background:
+    linear-gradient(90deg, rgba(181, 111, 120, 0.1), transparent 28%),
+    linear-gradient(180deg, rgba(255, 250, 248, 0.99), rgba(255, 255, 255, 0.96));
+}
+
+body[data-theme="rose"] #rsvp.card {
+  border-radius: 28px;
+}
+
+body[data-theme="rose"] .flower {
+  background:
+    radial-gradient(circle at 26% 32%, rgba(255, 255, 255, 0.9) 0 18%, transparent 19%),
+    linear-gradient(135deg, #f4d8da 0%, #c98c94 45%, #a85e68 100%);
+  box-shadow:
+    inset -1px -2px 0 rgba(132, 78, 85, 0.24),
+    0 0 10px rgba(181, 111, 120, 0.42);
+}
+
+body[data-theme="rose"] .hero-title-block {
+  letter-spacing: 0;
+}
+
+body[data-theme="rose"] .hero-name {
+  font-weight: 400;
+  letter-spacing: 0;
+  text-shadow: 0 12px 34px rgba(145, 91, 96, 0.18);
+}
+
+body[data-theme="rose"] .mempelai-intro .bismillah-title {
+  display: block;
+  width: min(100%, 14ch);
+  max-width: 100%;
+  margin-inline: auto;
+  padding-block: 0.18em 0.12em;
+  font-family: var(--font-display);
+  font-size: clamp(1.86rem, 5.8vw, 3rem);
+  font-weight: 400;
+  line-height: 1.34;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+body[data-theme="rose"] .brand {
+  border-radius: 999px;
+  box-shadow: 0 16px 36px rgba(145, 91, 96, 0.14);
+  font-size: 1.86rem;
+  line-height: 1.18;
+}
+
+body[data-theme="rose"] .brand-letter {
+  width: auto;
+  min-width: 1.08em;
+  height: auto;
+  padding: 0.1em 0.16em;
+  color: #3b302f;
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-theme="rose"] .brand-sep {
+  color: #9f5963;
+  font-size: 0.9em;
+  margin-inline: -0.04em;
+}
+
+body[data-theme="rose"] .card,
+body[data-theme="rose"] .event-item,
+body[data-theme="rose"] .gift-account-card {
+  border-radius: 22px;
+}
+
+body[data-theme="rose"] .card,
+body[data-theme="rose"] .gallery-section {
+  color: var(--ink);
+  background:
+    linear-gradient(180deg, rgba(255, 250, 248, 0.99), rgba(255, 255, 255, 0.96)),
+    radial-gradient(circle at 86% 10%, rgba(181, 111, 120, 0.14), transparent 32%);
+}
+
+body[data-theme="rose"] .event-item {
+  background:
+    linear-gradient(90deg, rgba(181, 111, 120, 0.18), transparent 34%),
+    linear-gradient(145deg, rgba(255, 250, 248, 0.99), rgba(255, 255, 255, 0.96));
+  border-color: rgba(181, 111, 120, 0.2);
+}
+
+body[data-theme="rose"] .gallery-item,
+body[data-theme="rose"] .timeline article {
+  position: relative;
+}
+
+body[data-theme="rose"] .hero-cloud-photo,
+body[data-theme="rose"] .gallery-item {
+  border-radius: 18px;
+}
+
+body[data-theme="rose"] .gallery-item::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 auto;
+  width: min(42%, 170px);
+  height: 34%;
+  background: linear-gradient(135deg, rgba(181, 111, 120, 0.4), rgba(181, 111, 120, 0.08));
+  opacity: 0.52;
+  pointer-events: none;
+}
+
+body[data-theme="rose"] .timeline article {
+  overflow: hidden;
+  border-color: rgba(181, 111, 120, 0.24);
+  background:
+    linear-gradient(90deg, rgba(181, 111, 120, 0.08), transparent 28%),
+    linear-gradient(180deg, rgba(255, 250, 248, 0.98), rgba(255, 255, 255, 0.94));
+  box-shadow: 0 18px 38px rgba(99, 67, 67, 0.12);
+}
+
+body[data-theme="rose"] .timeline article::after {
+  content: "";
+  position: absolute;
+  right: -34px;
+  bottom: -42px;
+  width: 180px;
+  height: 120px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(181, 111, 120, 0.13), rgba(197, 164, 111, 0.08) 54%, transparent 72%);
+  pointer-events: none;
+}
+
+body[data-theme="rose"] .timeline-content,
+body[data-theme="rose"] .story-moon {
+  position: relative;
+  z-index: 1;
+}
+
+body[data-theme="rose"] .story-moon {
+  width: 118px;
+  height: 118px;
+  border-radius: 22px;
+  border-color: rgba(255, 250, 248, 0.96);
+  box-shadow: 0 18px 38px rgba(145, 91, 96, 0.18);
+}
+
+body[data-theme="rose"] .gallery-grid[data-style="polaroid"] .gallery-item {
+  transform: rotate(-1.2deg);
+}
+
+body[data-theme="rose"] .gallery-grid[data-style="polaroid"] .gallery-slide:nth-child(even) .gallery-item,
+body[data-theme="rose"] .gallery-grid[data-style="polaroid"] .gallery-item:nth-child(even) {
+  transform: rotate(1.2deg);
+}
+
+body[data-theme="rose"] .btn,
+body[data-theme="rose"] .gate-open-btn,
+body[data-theme="rose"] .gift-copy-btn,
+body[data-theme="rose"] .rsvp-submit {
+  color: #fff8fa;
+  background: linear-gradient(135deg, #a85e68, #c5a46f);
+  border-color: rgba(197, 164, 111, 0.5);
+  box-shadow: 0 12px 28px rgba(145, 91, 96, 0.22);
+}
+
+body[data-theme="rose"] .btn:hover,
+body[data-theme="rose"] .gift-copy-btn:hover {
+  box-shadow: 0 14px 32px rgba(145, 91, 96, 0.28);
+}
+
+body[data-theme="rose"] .lead,
+body[data-theme="rose"] .profile p,
+body[data-theme="rose"] .event-meta p {
+  color: #665250;
+}
+
+body[data-theme="rose"] h2,
+body[data-theme="rose"] .profile h3,
+body[data-theme="rose"] .event-date-main {
+  color: #3b302f;
+}
+
+body[data-theme="rose"] .section-kicker,
+body[data-theme="rose"] .event-tag,
+body[data-theme="rose"] .event-label {
+  color: #9f5963;
+}
+
+body[data-theme="rose"] .event-date-day,
+body[data-theme="rose"] .event-meta p span:last-child,
+body[data-theme="rose"] .event-utility a,
+body[data-theme="rose"] .text-link {
+  color: #6c464a;
+}
+
+body[data-theme="rose"] .countdown-item,
+body[data-theme="rose"] .profile,
+body[data-theme="rose"] .map-card,
+body[data-theme="rose"] .faith-block,
+body[data-theme="rose"] .gift-account-card {
+  border-color: rgba(181, 111, 120, 0.22);
+  background-color: rgba(255, 250, 248, 0.9);
+}
+
+body[data-theme="rose"] .hero-text-link {
+  color: #8f4e58;
+}
+
+@media (max-width: 520px) {
+  body[data-theme="rose"] .card,
+  body[data-theme="rose"] .gallery-section {
+    background:
+      linear-gradient(180deg, rgba(255, 250, 248, 0.995), rgba(255, 255, 255, 0.98)),
+      radial-gradient(circle at 92% 4%, rgba(181, 111, 120, 0.12), transparent 30%);
+    box-shadow: 0 16px 34px rgba(99, 67, 67, 0.12);
+  }
+
+  body[data-theme="rose"] .section {
+    padding-inline: 28px;
+  }
+
+  body[data-theme="rose"] .section h2 {
+    letter-spacing: 0.035em;
+  }
+
+  body[data-theme="rose"] .mempelai-intro,
+  body[data-theme="rose"] #acara.card {
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+
+  body[data-theme="rose"] .mempelai-intro .bismillah-title {
+    width: 100%;
+    font-size: clamp(1.72rem, 8vw, 2.24rem);
+    line-height: 1.42;
+    max-width: 100%;
+  }
+
+  body[data-theme="rose"] .event-grid {
+    gap: 12px;
+  }
+
+  body[data-theme="rose"] .event-item {
+    padding: 22px 18px;
+    min-height: auto;
+  }
+
+  body[data-theme="rose"] .timeline article {
+    padding: 24px 20px;
+    gap: 16px;
+  }
+
+  body[data-theme="rose"] .story-moon {
+    width: 108px;
+    height: 108px;
+  }
+}

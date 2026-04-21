@@ -448,6 +448,9 @@ function syncThemeMotion(theme) {
   } else if (normalized === "royal") {
     particleState.maxLeaves = isSmallMobileViewport ? 2 : (isLowPowerDevice ? 5 : 10);
     particleState.maxFlowers = isSmallMobileViewport ? 4 : (isLowPowerDevice ? 8 : 16);
+  } else if (normalized === "luxury-gold") {
+    particleState.maxLeaves = isSmallMobileViewport ? 1 : (isLowPowerDevice ? 3 : 6);
+    particleState.maxFlowers = isSmallMobileViewport ? 5 : (isLowPowerDevice ? 10 : 18);
   } else if (normalized === "rose") {
     particleState.maxLeaves = isSmallMobileViewport ? 2 : (isLowPowerDevice ? 5 : 10);
     particleState.maxFlowers = isSmallMobileViewport ? 5 : (isLowPowerDevice ? 10 : 20);
