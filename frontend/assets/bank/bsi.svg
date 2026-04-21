@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 96" role="img" aria-label="BSI">
+  <rect width="240" height="96" rx="20" fill="#0F6B58"/>
+  <path d="M34 32h24M46 20v24" stroke="#F8C24D" stroke-width="5" stroke-linecap="round"/>
+  <text x="32" y="68" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#ffffff">BSI</text>
+</svg>

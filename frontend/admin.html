@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Undangan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <main class="container">
+    <header>
+      <p class="eyebrow">Admin Panel</p>
+      <h1>Kelola Undangan Pernikahan</h1>
+      <p>Panel admin dibagi per section: umum, acara, gift, tamu, galeri, dan musik agar lebih gampang dirawat.</p>
+    </header>
+
+    <section class="card">
+      <h2>Koneksi</h2>
+      <div class="grid two">
+        <label>
+          URL Web App (GAS)
+          <input id="apiUrl" type="text" readonly />
+        </label>
+        <label>
+          Admin Key
+          <input id="adminKey" type="password" placeholder="Masukkan ADMIN_KEY dari Code.gs" />
+        </label>
+      </div>
+      <label>
+        Base URL Undangan (untuk generate link tamu)
+        <input id="invitationBaseUrl" type="text" placeholder="https://username.github.io/nama-repo/" />
+      </label>
+      <p class="status" id="statusConn"></p>
+    </section>
+
+    <nav class="card admin-nav" aria-label="Navigasi admin">
+      <button type="button" class="admin-tab is-active" data-target="identitasCard">Umum</button>
+      <button type="button" class="admin-tab" data-target="acaraCard">Acara</button>
+      <button type="button" class="admin-tab" data-target="giftCard">Gift</button>
+      <button type="button" class="admin-tab" data-target="tamuRsvpCard">Tamu</button>
+      <button type="button" class="admin-tab" data-target="galeriCard">Galeri</button>
+      <button type="button" class="admin-tab" data-target="musikCard">Musik</button>
+    </nav>
+
+    <section class="card admin-action-bar" aria-label="Aksi cepat admin">
+      <div class="admin-action-group">
+        <button id="btnActionSave" class="btn" type="button">Simpan</button>
+        <button id="btnActionLoad" class="btn btn-ghost" type="button">Muat dari Server</button>
+        <button id="btnPreviewToggle" class="btn btn-ghost" type="button">Lihat Preview</button>
+        <button id="btnScrollTop" class="btn btn-ghost" type="button">Scroll ke Atas</button>
+      </div>
+      <div class="admin-action-meta">
+        <p class="admin-action-note">Draft preview bisa dilihat tanpa simpan ke server.</p>
+        <p class="admin-dirty-state is-clean" id="dirtyState">Semua perubahan tersimpan</p>
+      </div>
+      <p class="status" id="statusConfig"></p>
+    </section>
+
+    <section id="draftRestoreBanner" class="card draft-restore-banner" hidden>
+      <div>
+        <p class="section-label">Draft Lokal</p>
+        <p class="draft-restore-text" id="draftRestoreText">Ada draft lokal yang belum disimpan.</p>
+      </div>
+      <div class="admin-action-group">
+        <button id="btnRestoreDraft" class="btn" type="button">Pulihkan Draft</button>
+        <button id="btnDiscardDraft" class="btn btn-ghost" type="button">Buang Draft</button>
+      </div>
+    </section>
+
+    <section id="previewPanel" class="card admin-preview-panel" hidden>
+      <div class="row-between">
+        <div>
+          <p class="section-label">Preview Mode</p>
+          <h2>Preview Undangan</h2>
+        </div>
+        <button id="btnPreviewRefresh" class="btn btn-ghost" type="button">Refresh Preview</button>
+      </div>
+      <p class="section-copy">Preview membaca draft terbaru dari admin ini, jadi perubahan bisa dicek sebelum disimpan ke server.</p>
+      <iframe id="previewFrame" class="admin-preview-frame" title="Preview undangan admin"></iframe>
+    </section>
+
+    <section class="card admin-panel-section is-active" id="identitasCard" data-section="identitasCard">
+      <div class="row-between">
+        <div>
+          <p class="section-label">Publik Config</p>
+          <h2>Umum</h2>
+        </div>
+        <button id="btnLoadConfig" class="btn btn-ghost" type="button">Muat dari Server</button>
+      </div>
+      <p class="section-copy">Atur identitas utama, mempelai, SEO, hero, doa, dan love story.</p>
+      <div class="grid two">
+        <label>Inisial Brand<input id="brandInitials" type="text" /></label>
+        <label>Judul SEO (title browser)<input id="seoTitle" type="text" placeholder="Undangan Pernikahan Dina & Alfian" /></label>
+        <label>Deskripsi SEO
+          <textarea id="seoDescription" rows="2" placeholder="Undangan pernikahan digital dengan RSVP online."></textarea>
+        </label>
+        <label>
+          Tema Tampilan
+          <select id="themeName">
+            <option value="botanical">Botanical Green</option>
+            <option value="rose">Rose Gold</option>
+            <option value="royal">Royal Navy</option>
+            <option value="minimal">Minimal Light</option>
+          </select>
+        </label>
+        <label>Judul Atas Hero (contoh: Wedding Invitation)<input id="heroOverline" type="text" /></label>
+        <label>Tanggal & Lokasi Hero<input id="heroDatePlace" type="text" /></label>
+        <label>Tanggal Hero Mulai<input id="heroDateStart" type="date" /></label>
+        <label>Tanggal Hero Selesai (opsional)<input id="heroDateEnd" type="date" /></label>
+        <label>Kota/Lokasi Hero<input id="heroDateCity" type="text" placeholder="Bogor" /></label>
+        <label>Footer Names<input id="footerNames" type="text" /></label>
+      </div>
+
+      <div class="admin-subcard">
+        <div class="section-head">
+          <div>
+            <p class="section-label">Konten Tambahan</p>
+            <h3>Doa, Ayat, dan Hadist</h3>
+          </div>
+        </div>
+        <div class="grid two">
+          <label>Ayat Quran (Arab/HTML)
+            <textarea id="quranVerseArabic" rows="4" placeholder="Teks Arab ayat"></textarea>
+          </label>
+          <label>Terjemahan Ayat
+            <textarea id="quranVerseTranslation" rows="4" placeholder="Terjemahan ayat"></textarea>
+          </label>
+          <label>Referensi Ayat<input id="quranVerseReference" type="text" placeholder="QS. Ar-Rum: 21" /></label>
+          <label>Hadist Nabi
+            <textarea id="hadithText" rows="4" placeholder="Teks hadist tentang pernikahan"></textarea>
+          </label>
+          <label>Referensi Hadist<input id="hadithReference" type="text" placeholder="HR. Tirmidzi" /></label>
+          <label>Doa Pernikahan
+            <textarea id="marriageDoaText" rows="3" placeholder="Doa pernikahan"></textarea>
+          </label>
+          <label>Arti Doa
+            <textarea id="marriageDoaReference" rows="3" placeholder="Arti atau penjelasan doa"></textarea>
+          </label>
+        </div>
+      </div>
+      <div class="admin-subcard">
+        <div class="section-head">
+          <div>
+            <p class="section-label">Publik Config</p>
+            <h2>Mempelai</h2>
+          </div>
+        </div>
+        <p class="section-copy">Kelola informasi kedua mempelai dan konten love story yang tampil di halaman undangan.</p>
+        <div class="grid two">
+          <label>Nama Pendek Mempelai Wanita<input id="brideShortName" type="text" /></label>
+          <label>Nama Pendek Mempelai Pria<input id="groomShortName" type="text" /></label>
+          <label>Nama Lengkap Mempelai Wanita<input id="brideFullName" type="text" /></label>
+          <label>Nama Lengkap Mempelai Pria<input id="groomFullName" type="text" /></label>
+          <label>Orang Tua Mempelai Wanita<input id="brideParents" type="text" /></label>
+          <label>Orang Tua Mempelai Pria<input id="groomParents" type="text" /></label>
+        </div>
+
+      <div class="admin-subcard">
+        <div class="section-head">
+          <div>
+            <p class="section-label">Love Story</p>
+            <h3>Foto Love Story</h3>
+          </div>
+        </div>
+        <label>
+          Foto Love Story (1 baris = 1 URL, maksimal 3)
+          <textarea id="loveStoryPhotos" rows="4" placeholder="https://.../foto-love-story-1.jpg"></textarea>
+        </label>
+        <div id="loveStoryPreview" class="story-preview"></div>
+        <div class="actions">
+          <button id="btnLoveStoryFromGallery" class="btn btn-ghost" type="button">Ambil 3 Foto dari Galeri</button>
+        </div>
+        <div class="grid">
+          <label>
+            Upload Foto Love Story ke Google Drive (maks 3 file)
+            <div class="field-row">
+              <input id="loveStoryPhotoFiles" type="file" accept="image/*" multiple />
+              <button id="btnUploadLoveStoryPhotos" class="btn-mini" type="button">Upload Love Story</button>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="admin-subcard">
+        <div class="section-head">
+          <div>
+            <p class="section-label">Love Story</p>
+            <h3>Teks Love Story</h3>
+          </div>
+        </div>
+        <div class="grid two">
+          <label>Tanggal/Periode Story 1<input id="storyDate1" type="text" placeholder="2021" /></label>
+          <label>Judul Story 1<input id="storyTitle1" type="text" placeholder="Pertama Bertemu" /></label>
+          <label class="grid span-full">
+            Deskripsi Story 1
+            <textarea id="storyDesc1" rows="2" placeholder="Ceritakan momen awal..."></textarea>
+          </label>
+          <label>Tanggal/Periode Story 2<input id="storyDate2" type="text" placeholder="2023" /></label>
+          <label>Judul Story 2<input id="storyTitle2" type="text" placeholder="Lamaran" /></label>
+          <label class="grid span-full">
+            Deskripsi Story 2
+            <textarea id="storyDesc2" rows="2" placeholder="Ceritakan momen kedua..."></textarea>
+          </label>
+          <label>Tanggal/Periode Story 3<input id="storyDate3" type="text" placeholder="2026" /></label>
+          <label>Judul Story 3<input id="storyTitle3" type="text" placeholder="Hari Pernikahan" /></label>
+          <label class="grid span-full">
+            Deskripsi Story 3
+            <textarea id="storyDesc3" rows="2" placeholder="Ceritakan momen ketiga..."></textarea>
+          </label>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <section class="card admin-panel-section" id="acaraCard" data-section="acaraCard" hidden>
+      <div class="section-head">
+        <div>
+          <p class="section-label">Publik Config</p>
+          <h2>Acara</h2>
+        </div>
+      </div>
+      <p class="section-copy">Atur waktu utama, countdown, detail akad, dan resepsi.</p>
+      <div class="grid two">
+        <label>Tanggal & Jam Acara<input id="weddingDateTimeLocal" type="datetime-local" /></label>
+        <label>Zona Waktu
+          <select id="weddingTimeOffset">
+            <option value="+07:00">WIB (+07:00)</option>
+            <option value="+08:00">WITA (+08:00)</option>
+            <option value="+09:00">WIT (+09:00)</option>
+          </select>
+        </label>
+        <label>Format ISO (otomatis)
+          <input id="weddingDateISO" type="text" readonly />
+        </label>
+        <label>Target Countdown (Hari Pertama Acara)
+          <input id="eventStartDateTimeLocal" type="datetime-local" />
+        </label>
+        <label>Zona Waktu Countdown
+          <select id="eventStartOffset">
+            <option value="+07:00">WIB (+07:00)</option>
+            <option value="+08:00">WITA (+08:00)</option>
+            <option value="+09:00">WIT (+09:00)</option>
+          </select>
+        </label>
+        <label>Event Start ISO (otomatis)
+          <input id="eventStartISO" type="text" readonly />
+        </label>
+      </div>
+
+      <div class="admin-subcard">
+        <h3>Akad</h3>
+        <div class="grid two">
+          <label>Tanggal Akad<input id="akadDate" type="text" /></label>
+          <label>Waktu Akad<input id="akadTime" type="text" /></label>
+          <label>Tempat Akad<input id="akadVenue" type="text" /></label>
+          <label>Link Maps Akad<input id="akadMapUrl" type="text" /></label>
+        </div>
+      </div>
+
+      <div class="admin-subcard">
+        <h3>Resepsi</h3>
+        <div class="grid two">
+          <label>Tanggal Resepsi<input id="resepsiDate" type="text" /></label>
+          <label>Waktu Resepsi<input id="resepsiTime" type="text" /></label>
+          <label>Tempat Resepsi<input id="resepsiVenue" type="text" /></label>
+          <label>Link Maps Resepsi<input id="resepsiMapUrl" type="text" /></label>
+        </div>
+      </div>
+    </section>
+
+    <section class="card admin-panel-section" id="galeriCard" data-section="galeriCard" hidden>
+      <div class="section-head">
+        <div>
+          <p class="section-label">Publik Config</p>
+          <h2>Galeri</h2>
+        </div>
+      </div>
+      <p class="section-copy">Kelola hero photo, galeri utama, fokus foto, dan penghapusan aset gambar.</p>
+      <label>
+        Foto Galeri (1 baris = 1 URL/path)
+        <textarea id="galleryPhotos" rows="7" placeholder="assets/photos/foto-1.jpg"></textarea>
+      </label>
+      <div class="actions">
+        <button id="btnGenerateHeroDate" class="btn btn-ghost" type="button">Generate Tanggal Hero</button>
+      </div>
+      <div class="admin-subcard">
+        <div class="section-head">
+          <div>
+            <p class="section-label">Hero</p>
+            <h3>Foto Hero</h3>
+          </div>
+        </div>
+        <div class="grid two">
+          <label>
+            Foto Background Hero (URL/path)
+            <div class="field-row">
+              <input id="heroBackgroundPhoto" type="text" placeholder="https://.../foto-hero.jpg" />
+              <button id="btnHeroFromGallery" class="btn-mini" type="button">Ambil dari Galeri</button>
+            </div>
+          </label>
+          <label>
+            Upload Foto Hero ke Google Drive
+            <div class="field-row">
+              <input id="heroPhotoFile" type="file" accept="image/*" />
+              <button id="btnUploadHeroPhoto" class="btn-mini" type="button">Upload Hero</button>
+            </div>
+          </label>
+        </div>
+      </div>
+      <div class="admin-subcard">
+        <h3>Pengaturan Galeri</h3>
+        <div class="grid two">
+          <label>
+            Mode Galeri
+            <select id="galleryMode">
+              <option value="grid">Grid</option>
+              <option value="carousel">Carousel Otomatis</option>
+            </select>
+          </label>
+          <label>
+            Maksimal Foto Ditampilkan (0 = semua)
+            <input id="galleryMaxItems" type="number" min="0" step="1" placeholder="0" />
+          </label>
+          <label>
+            Interval Carousel (detik)
+            <input id="galleryAutoplaySec" type="number" min="1" step="0.5" placeholder="3.5" />
+          </label>
+          <label>
+            Gaya Galeri
+            <select id="galleryStyle">
+              <option value="elegant">Elegant</option>
+              <option value="soft">Soft</option>
+              <option value="polaroid">Polaroid</option>
+              <option value="clean">Clean</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div class="admin-subcard">
+        <div class="row-between">
+          <h3>Preview Galeri</h3>
+          <label class="inline-check">
+            <input id="deleteFromDrive" type="checkbox" />
+            Hapus juga di Google Drive
+          </label>
+        </div>
+        <div class="actions">
+          <button id="btnApplyGallerySelection" class="btn btn-ghost" type="button">Gunakan Hanya Foto Terpilih</button>
+        </div>
+        <div id="galleryPreview" class="gallery-preview"></div>
+      </div>
+      <div class="admin-subcard">
+        <div class="grid">
+          <label>
+            Upload Foto ke Google Drive
+            <input id="photoFiles" type="file" accept="image/*" multiple />
+          </label>
+        </div>
+        <label>
+          Hapus Foto (tempel URL, 1 baris 1 URL)
+          <textarea id="deletePhotoUrls" rows="4" placeholder="https://drive.google.com/uc?export=view&id=..."></textarea>
+        </label>
+        <div class="actions">
+          <button id="btnUploadPhotos" class="btn btn-ghost" type="button">Upload Foto</button>
+          <button id="btnDeletePhotos" class="btn btn-ghost" type="button">Hapus Foto (Drive + Galeri)</button>
+        </div>
+      </div>
+      <p class="status" id="statusGallery"></p>
+      <p class="hint-text">Tip: upload foto lewat tombol <b>Upload Foto</b>. Jika Hero/Love Story kosong, sistem akan isi otomatis dari hasil upload terbaru.</p>
+    </section>
+
+    <section class="card admin-panel-section" id="musikCard" data-section="musikCard" hidden>
+      <div class="section-head">
+        <div>
+          <p class="section-label">Publik Config</p>
+          <h2>Musik</h2>
+        </div>
+      </div>
+      <p class="section-copy">Atur playlist, titik mulai lagu, loop reff, dan upload audio.</p>
+      <div class="grid two">
+        <label>
+          URL Musik Aktif (otomatis dari playlist / manual)
+          <input id="backgroundMusicUrl" type="text" placeholder="https://.../music.mp3" />
+        </label>
+        <label>
+          Upload Musik ke Google Drive
+          <input id="musicFile" type="file" accept="audio/*" />
+        </label>
+        <label>
+          Mode Playlist
+          <select id="musicPlaybackMode">
+            <option value="ordered">Urutan</option>
+            <option value="shuffle">Acak</option>
+          </select>
+        </label>
+        <label>
+          Mulai Musik Dari Detik
+          <input id="musicStartSec" type="number" min="0" step="0.1" placeholder="contoh: 45" />
+        </label>
+        <label>
+          Loop Reff (Detik Mulai - Detik Selesai)
+          <div class="grid two">
+            <input id="musicLoopStartSec" type="number" min="0" step="0.1" placeholder="mulai: 60" />
+            <input id="musicLoopEndSec" type="number" min="0" step="0.1" placeholder="selesai: 85" />
+          </div>
+        </label>
+      </div>
+      <div class="row-between">
+        <h3>Playlist Musik</h3>
+        <button id="btnLoadMusicLibrary" class="btn btn-ghost" type="button">Muat Musik Drive</button>
+      </div>
+      <p class="hint-text">Centang lagu yang ingin diputar. Urutan kartu dipakai untuk mode urutan, atau dipilih acak jika mode playlist diset ke acak.</p>
+      <div id="musicLibraryEditor" class="music-library-list"></div>
+      <div class="actions">
+        <button id="btnUploadMusic" class="btn btn-ghost" type="button">Upload Musik</button>
+      </div>
+      <p class="status" id="statusMusic"></p>
+    </section>
+
+    <section class="card admin-panel-section" id="giftCard" data-section="giftCard" hidden>
+      <div class="section-head">
+        <div>
+          <p class="section-label">Publik Config</p>
+          <h2>Gift</h2>
+        </div>
+      </div>
+      <p class="section-copy">Kelola section wedding gift, rekening bank, dan e-wallet yang tampil di undangan.</p>
+      <div class="grid two">
+        <label class="inline-check">
+          <input id="giftEnabled" type="checkbox" />
+          Aktifkan Section Gift
+        </label>
+        <label>Judul Section Gift<input id="giftSectionTitle" type="text" placeholder="Wedding Gift" /></label>
+        <label>Subjudul Section Gift
+          <textarea id="giftSectionSubtitle" rows="2" placeholder="Doa restu Anda adalah hadiah terindah."></textarea>
+        </label>
+      </div>
+      <div class="actions">
+        <button id="btnAddGiftBank" class="btn btn-ghost" type="button">Tambah Bank</button>
+        <button id="btnAddGiftEwallet" class="btn btn-ghost" type="button">Tambah E-Wallet</button>
+        <button id="btnSaveConfig" class="btn" type="button">Simpan Konfigurasi</button>
+      </div>
+      <div id="giftAccountsEditor" class="gift-editor-list"></div>
+      <p class="status" id="statusGift"></p>
+    </section>
+
+    <section class="card admin-panel-section" id="tamuRsvpCard" data-section="tamuRsvpCard" hidden>
+      <div class="section-head">
+        <div>
+          <p class="section-label">Admin Data</p>
+          <h2>Tamu</h2>
+        </div>
+      </div>
+      <p class="section-copy">Kelola import tamu, link undangan, filter status, serta data RSVP dan ucapan masuk.</p>
+      <div class="admin-subcard">
+        <div class="section-head">
+          <div>
+            <p class="section-label">Daftar Tamu</p>
+            <h3>Import dan Kelola Tamu</h3>
+          </div>
+        </div>
+        <label>
+          Daftar Tamu (format: Nama|Group|Telepon|Tipe, 1 baris 1 tamu)
+          <textarea id="guestInput" rows="8" placeholder="Bapak Andi|Keluarga|62812xxxx|personal\nTeman-teman SD 01 Ciangsana|Sekolah||group"></textarea>
+        </label>
+        <label>
+          Cari Tamu
+          <input id="guestSearch" type="text" placeholder="Ketik nama tamu..." />
+        </label>
+        <div class="grid three">
+          <label>
+            Filter Group
+            <select id="guestGroupFilter">
+              <option value="all">Semua Group</option>
+            </select>
+          </label>
+          <label>
+            Filter Status
+            <select id="guestStatusFilter">
+              <option value="all">Semua Status</option>
+              <option value="active">Active</option>
+              <option value="vip">VIP</option>
+              <option value="disabled">Disabled</option>
+            </select>
+          </label>
+          <label>
+            Data per Halaman
+            <select id="guestPageSize">
+              <option value="10">10</option>
+              <option value="20" selected>20</option>
+              <option value="50">50</option>
+            </select>
+          </label>
+        </div>
+        <div class="actions">
+          <button id="btnImportGuests" class="btn" type="button">Import Nama Tamu</button>
+          <button id="btnLoadGuests" class="btn btn-ghost" type="button">Muat Semua Tamu</button>
+          <button id="btnExportGuestsCsv" class="btn btn-ghost" type="button">Export CSV</button>
+        </div>
+        <p class="status" id="statusGuests"></p>
+        <div class="guest-table-wrap">
+          <table class="guest-table">
+            <thead>
+              <tr>
+                <th>Kode</th>
+                <th>Nama</th>
+                <th>Group</th>
+                <th>Tipe</th>
+                <th>Status</th>
+                <th>Telepon</th>
+                <th>Link</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="guestTableBody"></tbody>
+          </table>
+        </div>
+        <div class="pager-row">
+          <button id="btnGuestPrev" class="btn btn-ghost" type="button">Sebelumnya</button>
+          <p id="guestPageInfo">Halaman 1 / 1</p>
+          <button id="btnGuestNext" class="btn btn-ghost" type="button">Berikutnya</button>
+        </div>
+        <label>
+          Hasil Link Undangan Tamu
+          <textarea id="guestLinks" rows="8" readonly></textarea>
+        </label>
+      </div>
+
+      <div class="admin-subcard">
+        <div class="section-head">
+          <div>
+            <p class="section-label">RSVP</p>
+            <h3>RSVP & Ucapan Masuk</h3>
+          </div>
+        </div>
+        <div class="actions">
+          <button id="btnLoadRsvps" class="btn" type="button">Muat RSVP</button>
+        </div>
+        <p class="status" id="statusRsvps"></p>
+        <div class="grid two">
+          <label>
+            Cari RSVP / Ucapan
+            <input id="rsvpSearch" type="text" placeholder="Ketik nama atau isi ucapan..." />
+          </label>
+          <label>
+            Filter Kehadiran
+            <select id="rsvpKehadiranFilter">
+              <option value="all">Semua</option>
+              <option value="Hadir">Hadir</option>
+              <option value="Tidak Hadir">Tidak Hadir</option>
+            </select>
+          </label>
+        </div>
+        <div class="grid two">
+          <label>
+            Data per Halaman
+            <select id="rsvpPageSize">
+              <option value="10">10</option>
+              <option value="20" selected>20</option>
+              <option value="50">50</option>
+            </select>
+          </label>
+        </div>
+        <div class="guest-table-wrap">
+          <table class="guest-table">
+            <thead>
+              <tr>
+                <th>Waktu</th>
+                <th>Kode</th>
+                <th>Mode</th>
+                <th>Nama</th>
+                <th>Jumlah</th>
+                <th>Kehadiran</th>
+                <th>Ucapan</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="rsvpTableBody"></tbody>
+          </table>
+        </div>
+        <div class="pager-row">
+          <button id="btnRsvpPrev" class="btn btn-ghost" type="button">Sebelumnya</button>
+          <p id="rsvpPageInfo">Halaman 1 / 1</p>
+          <button id="btnRsvpNext" class="btn btn-ghost" type="button">Berikutnya</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toastRoot" class="toast-root" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="config.js"></script>
+  <script src="js/admin/api.js"></script>
+  <script src="js/admin/ui.js"></script>
+  <script src="js/admin/navigation.js"></script>
+  <script src="js/admin/guest.js"></script>
+  <script src="js/admin/rsvp.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

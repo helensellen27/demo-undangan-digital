@@ -1,0 +1,21 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/api/share"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/admin",
+      "destination": "/frontend/admin.html",
+      "permanent": false
+    },
+    {
+      "source": "/admin.html",
+      "destination": "/frontend/admin.html",
+      "permanent": false
+    }
+  ]
+}

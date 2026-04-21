@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 96" role="img" aria-label="Danamon">
+  <rect width="240" height="96" rx="20" fill="#FF7A00"/>
+  <polygon points="34,18 56,48 34,78 12,48" fill="#FFD100"/>
+  <polygon points="58,18 80,48 58,78 36,48" fill="#00A651"/>
+  <text x="100" y="58" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" fill="#ffffff">Danamon</text>
+</svg>

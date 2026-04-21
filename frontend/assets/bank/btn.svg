@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 96" role="img" aria-label="BTN">
+  <rect width="240" height="96" rx="20" fill="#0A72B8"/>
+  <path d="M28 36c14-18 36-18 50 0" fill="none" stroke="#FFD447" stroke-width="8" stroke-linecap="round"/>
+  <text x="34" y="68" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#ffffff">BTN</text>
+</svg>

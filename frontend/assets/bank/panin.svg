@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 96" role="img" aria-label="Panin Bank">
+  <rect width="240" height="96" rx="20" fill="#8A1538"/>
+  <path d="M30 68V28h18c10 0 18 8 18 18s-8 18-18 18H30zm12-12h6c4 0 8-4 8-10s-4-10-8-10h-6v20z" fill="#ffffff"/>
+  <text x="88" y="58" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#ffffff">PaninBank</text>
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 96" role="img" aria-label="Permata">
+  <rect width="240" height="96" rx="20" fill="#7D3F98"/>
+  <polygon points="42,20 58,48 42,76 26,48" fill="#9DD53A"/>
+  <polygon points="58,20 74,48 58,76 42,48" fill="#00AEEF"/>
+  <text x="92" y="58" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#ffffff">Permata</text>
+</svg>

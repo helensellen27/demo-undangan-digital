@@ -1,0 +1,296 @@
+﻿<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Undangan Pernikahan</title>
+  <meta name="description" content="Undangan pernikahan digital dengan RSVP online." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Undangan Pernikahan" />
+  <meta property="og:title" content="Undangan Pernikahan" />
+  <meta property="og:description" content="Undangan pernikahan digital dengan RSVP online." />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Undangan Pernikahan" />
+  <meta name="twitter:description" content="Undangan pernikahan digital dengan RSVP online." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://drive.google.com" crossorigin>
+  <link rel="preconnect" href="https://drive.usercontent.google.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="is-loading invitation-locked" aria-busy="true">
+  <div class="texture"></div>
+  <div class="aura aura-left"></div>
+  <div class="aura aura-right"></div>
+  <div id="leafLayer" class="leaf-layer" aria-hidden="true"></div>
+  <div id="flowerLayer" class="flower-layer" aria-hidden="true"></div>
+  <div id="pageLoader" class="page-loader" role="status" aria-live="polite">
+    <div class="loader-dot"></div>
+    <p id="loaderText">Memuat data undangan dari Sheet...</p>
+    <button id="loaderRetry" class="loader-retry" type="button" hidden>Coba Lagi</button>
+  </div>
+  <div id="invitationGate" class="invitation-gate" role="dialog" aria-modal="true" aria-label="Buka undangan">
+    <div class="gate-envelope">
+      <p class="gate-overline">Wedding Reception Invitation</p>
+      <h2 id="gateNames">Alya &amp; Fajar</h2>
+      <p id="gateDatePlace">Minggu, 20 Desember 2026 • Surabaya</p>
+      <div class="gate-recipient">
+        <p>Kepada Yth.</p>
+        <h3 id="gateGuestName">Bapak/Ibu/Saudara/i</h3>
+      </div>
+      <button id="openInvitationBtn" class="btn gate-open-btn" type="button">Buka Undangan</button>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <a href="#home" class="brand" id="brandInitials">A & F</a>
+    <nav>
+      <a href="#mempelai">Mempelai</a>
+      <a href="#acara">Acara</a>
+      <a href="#rsvp">RSVP</a>
+    </nav>
+  </header>
+
+  <section id="home" class="hero section reveal">
+    <div class="hero-cloud-photo" id="heroCloudPhoto" aria-hidden="true"></div>
+    <div class="hero-title-block">
+      <h1><span id="heroBrideShort">Alya</span> <span class="amp">&</span> <span id="heroGroomShort">Fajar</span></h1>
+      <p class="subtitle" id="heroDatePlace">Minggu, 20 Desember 2026 • Surabaya</p>
+    </div>
+
+    <div class="hero-actions">
+      <a href="#rsvp" class="btn">Konfirmasi Kehadiran</a>
+      <a href="#acara" class="hero-text-link">Lihat Detail Acara</a>
+    </div>
+
+    <div class="countdown" id="countdown" aria-live="polite">
+      <div id="cdCardDays" class="countdown-item">
+        <strong id="cdDays">0</strong>
+        <span>Hari</span>
+      </div>
+      <div id="cdCardHours" class="countdown-item">
+        <strong id="cdHours">0</strong>
+        <span>Jam</span>
+      </div>
+      <div id="cdCardMinutes" class="countdown-item">
+        <strong id="cdMinutes">0</strong>
+        <span>Menit</span>
+      </div>
+      <div id="cdCardSeconds" class="countdown-item">
+        <strong id="cdSeconds">0</strong>
+        <span>Detik</span>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section id="mempelai" class="section card reveal mempelai-intro">
+      <p class="section-kicker">&#x628;&#x650;&#x633;&#x652;&#x645;&#x650; &#x671;&#x644;&#x644;&#x64E;&#x651;&#x647;&#x650;</p>
+      <h2 class="bismillah-title">Bismillahirrahmanirrahim</h2>
+      <p class="lead">
+        Assalamu'alaikum Warahmatullahi Wabarakatuh. Dengan memohon rahmat dan ridho Allah ﷻ,
+        kami mengundang Bapak/Ibu/Saudara/i untuk hadir di hari bahagia kami.
+      </p>
+
+      <div class="couple-grid">
+        <article class="profile">
+          <div class="avatar" id="avatarBride">A</div>
+          <h3 id="brideFullName">Alya Putri Ramadhani</h3>
+          <p id="brideParents">Putri dari Bapak Ahmad & Ibu Nurhayati</p>
+        </article>
+
+        <div class="connector">&</div>
+
+        <article class="profile">
+          <div class="avatar" id="avatarGroom">F</div>
+          <h3 id="groomFullName">Fajar Maulana Pratama</h3>
+          <p id="groomParents">Putra dari Bapak Hadi & Ibu Siti Aminah</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="acara" class="section card reveal">
+      <h2>Detail Acara</h2>
+      <p class="lead">Dengan hormat, kami menantikan kehadiran dan doa restu Anda pada momen istimewa kami.</p>
+      <div class="event-grid">
+        <article id="akadCard" class="event-item">
+          <p class="event-tag">Akad</p>
+          <h3 id="akadDate">Minggu, 20 Desember 2026</h3>
+          <div class="event-meta">
+            <p><span class="event-label">Waktu</span><span id="akadTime">08.00 WIB</span></p>
+            <p><span class="event-label">Tempat</span><span id="akadVenue">Masjid Al-Ikhlas, Surabaya</span></p>
+          </div>
+          <a class="text-link" id="akadMap" href="https://maps.google.com" target="_blank" rel="noopener noreferrer">Buka Lokasi</a>
+        </article>
+
+        <article id="resepsiCard" class="event-item">
+          <p class="event-tag">Resepsi</p>
+          <h3 id="resepsiDate">Minggu, 20 Desember 2026</h3>
+          <div class="event-meta">
+            <p><span class="event-label">Waktu</span><span id="resepsiTime">11.00 - 14.00 WIB</span></p>
+            <p><span class="event-label">Tempat</span><span id="resepsiVenue">Graha Puspita, Surabaya</span></p>
+          </div>
+          <a class="text-link" id="resepsiMap" href="#peta">Lihat di Peta</a>
+        </article>
+      </div>
+      <p class="event-utility">
+        <a id="addToCalendarLink" href="#" target="_blank" rel="noopener noreferrer">Add to Calendar</a>
+      </p>
+    </section>
+
+    <section id="peta" class="section map-section reveal">
+      <h2>Lokasi Resepsi</h2>
+      <p class="lead">Silakan cek peta berikut agar perjalanan Anda lebih mudah.</p>
+      <div class="map-grid">
+        <article class="map-card">
+          <p class="event-tag">Lokasi Resepsi</p>
+          <div class="map-frame-wrap">
+            <iframe id="resepsiMapEmbed" title="Peta Lokasi Resepsi" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="map-placeholder">
+              <p>Lihat lokasi di Google Maps</p>
+            </div>
+          </div>
+          <a class="text-link" id="resepsiMapOpen" href="https://maps.google.com" target="_blank" rel="noopener noreferrer">Buka di Google Maps</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="galeri" class="section gallery-section reveal">
+      <h2>Galeri Momen</h2>
+      <p class="lead">Potret perjalanan kami menuju hari istimewa.</p>
+      <div id="galleryGrid" class="gallery-grid"></div>
+    </section>
+
+    <section id="loveStory" class="section card reveal">
+      <h2>Love Story</h2>
+      <div class="timeline">
+        <article>
+          <div class="timeline-content">
+            <p class="year" id="storyYear1">2021</p>
+            <h3 id="storyTitle1">Pertama Bertemu</h3>
+            <p id="storyDesc1">Kami bertemu dalam sebuah kegiatan komunitas dan mulai saling mengenal lebih dekat.</p>
+          </div>
+          <img id="storyPhoto1" class="story-moon" src="assets/photos/foto-1.svg" alt="Momen love story 1" loading="lazy" decoding="async" />
+        </article>
+
+        <article>
+          <div class="timeline-content">
+            <p class="year" id="storyYear2">2023</p>
+            <h3 id="storyTitle2">Lamaran</h3>
+            <p id="storyDesc2">Dengan restu keluarga, kami melangkah ke tahap yang lebih serius untuk masa depan bersama.</p>
+          </div>
+          <img id="storyPhoto2" class="story-moon" src="assets/photos/foto-2.svg" alt="Momen love story 2" loading="lazy" decoding="async" />
+        </article>
+
+        <article>
+          <div class="timeline-content">
+            <p class="year" id="storyYear3">2026</p>
+            <h3 id="storyTitle3">Hari Pernikahan</h3>
+            <p id="storyDesc3">InsyaAllah kami menyempurnakan separuh agama dan memulai perjalanan rumah tangga.</p>
+          </div>
+          <img id="storyPhoto3" class="story-moon" src="assets/photos/foto-3.svg" alt="Momen love story 3" loading="lazy" decoding="async" />
+        </article>
+      </div>
+    </section>
+
+    <section class="section card reveal quran-card">
+      <h2>Doa, Ayat, dan Hadist Pernikahan</h2>
+      <article id="quranBlock" class="faith-block">
+        <h3 class="faith-title">Ayat Al-Quran</h3>
+        <p class="quran-ar" id="quranAyatArab">&#x648;&#x64E;&#x645;&#x650;&#x646;&#x652; &#x622;&#x64A;&#x64E;&#x627;&#x62A;&#x650;&#x647;&#x650; &#x623;&#x64E;&#x646;&#x652; &#x62E;&#x64E;&#x644;&#x64E;&#x642;&#x64E; &#x644;&#x64E;&#x643;&#x64F;&#x645;&#x652; &#x645;&#x650;&#x646;&#x652; &#x623;&#x64E;&#x646;&#x652;&#x641;&#x64F;&#x633;&#x650;&#x643;&#x64F;&#x645;&#x652; &#x623;&#x64E;&#x632;&#x652;&#x648;&#x64E;&#x627;&#x62C;&#x64B;&#x627; &#x644;&#x650;&#x62A;&#x64E;&#x633;&#x652;&#x643;&#x64F;&#x646;&#x64F;&#x648;&#x627; &#x625;&#x650;&#x644;&#x64E;&#x64A;&#x652;&#x647;&#x64E;&#x627; &#x648;&#x64E;&#x62C;&#x64E;&#x639;&#x64E;&#x644;&#x64E; &#x628;&#x64E;&#x64A;&#x652;&#x646;&#x64E;&#x643;&#x64F;&#x645;&#x652; &#x645;&#x64E;&#x648;&#x64E;&#x62F;&#x64E;&#x651;&#x629;&#x64B; &#x648;&#x64E;&#x631;&#x64E;&#x62D;&#x652;&#x645;&#x64E;&#x629;&#x64B;</p>
+        <p id="quranAyatTrans">Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang.</p>
+        <p class="quran-ref" id="quranAyatRef">QS. Ar-Rum: 21</p>
+      </article>
+
+      <article id="hadithBlock" class="faith-block">
+        <h3 class="faith-title">Hadist Nabi</h3>
+        <p class="faith-text" id="hadithText">"Sebaik-baik kalian adalah yang paling baik kepada istrinya, dan aku adalah yang paling baik kepada istriku."</p>
+        <p class="quran-ref" id="hadithReference">HR. Tirmidzi</p>
+      </article>
+
+      <article id="doaBlock" class="faith-block">
+        <h3 class="faith-title">Doa Pernikahan</h3>
+        <p class="faith-text" id="marriageDoaText">"Barakallahu laka, wa baraka 'alaika, wa jama'a bainakuma fii khair."</p>
+        <p class="quran-ref" id="marriageDoaReference">Semoga Allah memberkahimu, memberkahi atasmu, dan mengumpulkan kalian berdua dalam kebaikan.</p>
+      </article>
+    </section>
+
+    <section id="giftSection" class="section card reveal gift-section">
+      <h2 id="giftSectionTitle">Wedding Gift</h2>
+      <p id="giftSectionSubtitle" class="lead">Doa restu Anda adalah hadiah terindah. Jika berkenan, Anda dapat mengirimkan tanda kasih melalui metode berikut.</p>
+      <div id="giftCategoryTabs" class="gift-category-tabs" role="tablist" aria-label="Pilih jenis hadiah"></div>
+      <div id="giftAccountsList" class="gift-accounts-list"></div>
+    </section>
+
+    <section id="rsvp" class="section card reveal">
+      <h2>RSVP & Ucapan</h2>
+      <p class="lead">Mohon konfirmasi kehadiran Anda melalui form berikut.</p>
+      <div class="rsvp-pill-row" aria-hidden="true">
+        <span>Konfirmasi cepat</span>
+        <span>Ucapan & doa</span>
+        <span>Data aman tersimpan</span>
+      </div>
+      <div class="rsvp-layout">
+        <form id="rsvpForm" class="rsvp-form">
+          <p id="rsvpModeHint" class="rsvp-mode-hint">Mode personal aktif. Nama tamu bisa langsung dikonfirmasi melalui form ini.</p>
+          <div class="rsvp-grid">
+            <label>
+              <span id="rsvpNameLabel">Nama Tamu</span>
+              <input type="text" id="inputNama" name="nama" required placeholder="Nama tamu" />
+            </label>
+            <label>
+              <span id="rsvpCountLabel">Jumlah Tamu</span>
+              <input type="number" name="jumlah" min="1" max="10" required />
+            </label>
+            <label>
+              Kehadiran
+              <select name="kehadiran" required>
+                <option value="Hadir">Hadir</option>
+                <option value="Tidak Hadir">Tidak Hadir</option>
+              </select>
+            </label>
+            <label>
+              Ucapan & Doa
+              <textarea name="ucapan" rows="4" placeholder="Tulis doa dan ucapan terbaik..."></textarea>
+            </label>
+          </div>
+          <button type="submit" class="btn rsvp-submit">Kirim RSVP</button>
+          <p id="formStatus" class="status" aria-live="polite"></p>
+        </form>
+
+        <aside class="wishes-panel">
+          <div class="wishes-head">
+            <div>
+              <h3>Ucapan Terbaru</h3>
+              <p id="wishesMeta">Memuat ucapan...</p>
+            </div>
+            <button id="wishesToggle" class="wishes-toggle" type="button" aria-expanded="true">Lihat</button>
+          </div>
+          <div id="wishesList" class="wishes-list" aria-live="polite">
+            <p class="wishes-empty">Belum ada ucapan.</p>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+    <section class="section closing-section reveal">
+      <p class="section-kicker">Terima Kasih</p>
+      <h2>Doa dan Kehadiran Anda Sangat Berarti</h2>
+      <p class="lead">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir serta memberikan doa restu.</p>
+    </section>
+  </main>
+
+  <footer class="section footer reveal">
+    <p class="footer-names" id="footerNames">Alya & Fajar</p>
+  </footer>
+
+  <button id="musicToggle" class="music-toggle" type="button" aria-label="Putar musik">Music</button>
+  <audio id="bgMusic" loop preload="none"></audio>
+
+  <script src="config.js" defer></script>
+  <script type="module" src="script.js"></script>
+</body>
+</html>
+
