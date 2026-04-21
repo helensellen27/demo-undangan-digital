@@ -3,7 +3,7 @@
 // Untuk mode static tanpa Vercel, isi manual di sini.
 const RSVP_API_URL = "";
 const RUNTIME_CONFIG_URL = "/api/runtime-config";
-const PUBLIC_CONFIG_MODE = "local";
+const PUBLIC_CONFIG_MODE = "";
 
 // Pengaturan lokal khusus admin.
 // Ganti ke domain Vercel/GitHub Pages baru setelah demo dideploy.
