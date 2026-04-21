@@ -25,7 +25,7 @@ const WEDDING_CONFIG = {
   brideParents: "Putri dari Bapak Ahmad & Ibu Nurhayati",
   groomParents: "Putra dari Bapak Hadi & Ibu Siti Aminah",
   heroDatePlace: "Minggu, 20 Desember 2026 - Surabaya",
-  heroBackgroundPhoto: "assets/photos/foto-1.svg",
+  heroBackgroundPhoto: "assets/photos/demo-photo-1.jpg",
   footerNames: "Alya & Fajar",
   weddingDateISO: "2026-12-20T08:00:00+07:00",
   eventStartISO: "2026-12-20T08:00:00+07:00",
@@ -62,9 +62,9 @@ const WEDDING_CONFIG = {
     mapUrl: "https://maps.google.com"
   },
   loveStoryPhotos: [
-    "assets/photos/foto-1.svg",
-    "assets/photos/foto-2.svg",
-    "assets/photos/foto-3.svg"
+    "assets/photos/demo-photo-1.jpg",
+    "assets/photos/demo-photo-2.jpg",
+    "assets/photos/demo-photo-3.jpg"
   ],
   loveStoryItems: [
     {
@@ -84,12 +84,12 @@ const WEDDING_CONFIG = {
     }
   ],
   galleryPhotos: [
-    "assets/photos/foto-1.svg",
-    "assets/photos/foto-2.svg",
-    "assets/photos/foto-3.svg",
-    "assets/photos/foto-4.svg",
-    "assets/photos/foto-5.svg",
-    "assets/photos/foto-6.svg"
+    "assets/photos/demo-photo-1.jpg",
+    "assets/photos/demo-photo-2.jpg",
+    "assets/photos/demo-photo-3.jpg",
+    "assets/photos/demo-photo-4.jpg",
+    "assets/photos/demo-photo-5.jpg",
+    "assets/photos/demo-photo-6.jpg"
   ],
   galleryPhotoFocus: {},
   galleryMode: "grid",
