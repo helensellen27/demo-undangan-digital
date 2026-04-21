@@ -1338,6 +1338,18 @@ function parseIndonesianDateToMs(dateText, timeText) {
 }
 
 function parsePrimaryWeddingTimestamp() {
+  const eventStartIso = String(currentConfig.eventStartISO || "").trim();
+  if (eventStartIso) {
+    const eventStartMs = parseIsoDateTimeToMs(eventStartIso);
+    if (!Number.isNaN(eventStartMs)) return eventStartMs;
+  }
+
+  const isoValue = String(currentConfig.weddingDateISO || "").trim();
+  if (isoValue) {
+    const isoTime = parseIsoDateTimeToMs(isoValue);
+    if (!Number.isNaN(isoTime)) return isoTime;
+  }
+
   const resepsiDate = (currentConfig.resepsi && currentConfig.resepsi.date) || "";
   const resepsiTime = (currentConfig.resepsi && currentConfig.resepsi.time) || "";
   const resepsiMs = parseIndonesianDateToMs(resepsiDate, resepsiTime);
@@ -1350,18 +1362,6 @@ function parsePrimaryWeddingTimestamp() {
 
   const heroMs = parseIndonesianDateToMs(currentConfig.heroDatePlace || "", resepsiTime);
   if (!Number.isNaN(heroMs)) return heroMs;
-
-  const eventStartIso = String(currentConfig.eventStartISO || "").trim();
-  if (eventStartIso) {
-    const eventStartMs = parseIsoDateTimeToMs(eventStartIso);
-    if (!Number.isNaN(eventStartMs)) return eventStartMs;
-  }
-
-  const isoValue = String(currentConfig.weddingDateISO || "").trim();
-  if (isoValue) {
-    const isoTime = parseIsoDateTimeToMs(isoValue);
-    if (!Number.isNaN(isoTime)) return isoTime;
-  }
 
   return NaN;
 }
