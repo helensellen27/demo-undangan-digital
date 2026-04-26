@@ -22,11 +22,22 @@ body[data-theme="botanical"] {
   --font-heading: "Cormorant Garamond", serif;
   --font-display: "Great Vibes", cursive;
   --font-accent: "Manrope", sans-serif;
-  font-size: 15px;
+  --body-font-size: 15px;
+  --body-line-height: 1.68;
+  --heading-font-weight: 600;
+  --heading-line-height: 1.06;
+  --heading-letter-spacing: 0.025em;
+  --hero-name-font-size: clamp(3.15rem, 8.4vw, 6.25rem);
+  --hero-name-font-weight: 400;
+  --hero-name-line-height: 0.92;
+  --hero-name-letter-spacing: 0.01em;
+  --section-ornament-color: #5f7e62;
+  --section-ornament-opacity: 0.16;
+  font-size: var(--body-font-size);
 }
 
 body[data-theme="botanical"] .section h2 {
-  letter-spacing: 0.04em;
+  letter-spacing: var(--heading-letter-spacing);
 }
 
 body[data-theme="botanical"] .section h2::after {
@@ -131,8 +142,8 @@ body[data-theme="botanical"] .hero-title-block {
 
 body[data-theme="botanical"] .hero-name {
   color: #fffdf8;
-  font-weight: 600;
-  letter-spacing: 0.02em;
+  font-weight: var(--hero-name-font-weight);
+  letter-spacing: var(--hero-name-letter-spacing);
   text-shadow: 0 12px 28px rgba(28, 48, 31, 0.24);
 }
 

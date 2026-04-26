@@ -23,6 +23,17 @@ body[data-theme="luxury-gold"] {
   --font-heading: "Forum", serif;
   --font-display: "Mr Dafoe", cursive;
   --font-accent: "Open Sans", sans-serif;
+  --body-font-size: 14.5px;
+  --body-line-height: 1.7;
+  --heading-font-weight: 400;
+  --heading-line-height: 1.08;
+  --heading-letter-spacing: 0.075em;
+  --hero-name-font-size: clamp(3.05rem, 7.8vw, 5.8rem);
+  --hero-name-font-weight: 400;
+  --hero-name-line-height: 0.98;
+  --hero-name-letter-spacing: 0.025em;
+  --section-ornament-color: #c6a45b;
+  --section-ornament-opacity: 0.26;
 }
 
 body[data-theme="luxury-gold"] .brand {
@@ -74,13 +85,13 @@ body[data-theme="luxury-gold"] .gate-recipient h3 {
 
 body[data-theme="luxury-gold"] .hero-name {
   color: #8a7542;
-  font-weight: 400;
-  letter-spacing: 0.04em;
+  font-weight: var(--hero-name-font-weight);
+  letter-spacing: var(--hero-name-letter-spacing);
   text-shadow: 0 12px 28px rgba(198, 164, 91, 0.14);
 }
 
 body[data-theme="luxury-gold"] .section h2 {
-  letter-spacing: 0.08em;
+  letter-spacing: var(--heading-letter-spacing);
   text-transform: uppercase;
 }
 
@@ -225,6 +236,13 @@ body[data-theme="luxury-gold"] .rsvp-pill-row span,
 body[data-theme="luxury-gold"] .gift-category-tab {
   background: rgba(198, 164, 91, 0.1);
   border-color: rgba(198, 164, 91, 0.24);
+}
+
+body[data-theme="luxury-gold"] .gift-category-tab.is-active {
+  color: #fffdf8;
+  background: linear-gradient(135deg, #8a7542, #c6a45b);
+  border-color: rgba(198, 164, 91, 0.42);
+  box-shadow: 0 14px 28px rgba(83, 67, 42, 0.18);
 }
 
 body[data-theme="luxury-gold"] .text-link,

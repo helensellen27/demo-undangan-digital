@@ -22,6 +22,17 @@ body[data-theme="royal"] {
   --font-heading: "Cormorant Garamond", serif;
   --font-display: "Pinyon Script", cursive;
   --font-accent: "Montserrat", sans-serif;
+  --body-font-size: 14.25px;
+  --body-line-height: 1.64;
+  --heading-font-weight: 700;
+  --heading-line-height: 1;
+  --heading-letter-spacing: 0.03em;
+  --hero-name-font-size: clamp(3.25rem, 8.2vw, 6.15rem);
+  --hero-name-font-weight: 400;
+  --hero-name-line-height: 0.92;
+  --hero-name-letter-spacing: 0.005em;
+  --section-ornament-color: #bba36b;
+  --section-ornament-opacity: 0.28;
 }
 
 body[data-theme="royal"] .section h2,
@@ -112,8 +123,8 @@ body[data-theme="royal"] .hero-title-block {
 
 body[data-theme="royal"] .hero-name {
   color: #6f8395;
-  font-weight: 400;
-  letter-spacing: 0;
+  font-weight: var(--hero-name-font-weight);
+  letter-spacing: var(--hero-name-letter-spacing);
   text-shadow: 0 12px 28px rgba(53, 93, 128, 0.14);
 }
 
@@ -212,9 +223,37 @@ body[data-theme="royal"] .gift-copy-btn:hover {
 }
 
 @media (max-width: 520px) {
+  body[data-theme="royal"] .section h2 {
+    max-width: 16ch;
+    font-size: clamp(2.05rem, 9.2vw, 2.48rem);
+    line-height: 1.18;
+    letter-spacing: 0.035em;
+  }
+
+  body[data-theme="royal"] .lead {
+    max-width: 32ch;
+  }
+
+  body[data-theme="royal"] .hero::after,
+  body[data-theme="royal"] .closing-section::before,
+  body[data-theme="royal"] .closing-section::after {
+    width: min(230px, 70%);
+    height: 48px;
+    opacity: 0.22;
+  }
+
   body[data-theme="royal"] .section h2::before,
+  body[data-theme="royal"] .gallery-section h2::before,
+  body[data-theme="royal"] .gift-section h2::before,
+  body[data-theme="royal"] .closing-section h2::before {
+    display: none;
+  }
+
   body[data-theme="royal"] .section h2::after {
-    width: 32px;
-    margin-inline: 10px;
+    display: block;
+    width: min(118px, 36vw);
+    height: 1px;
+    margin: 14px auto 0;
+    background: linear-gradient(90deg, transparent, rgba(187, 163, 107, 0.82), rgba(53, 93, 128, 0.5), transparent);
   }
 }
