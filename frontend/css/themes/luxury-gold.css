@@ -90,6 +90,25 @@ body[data-theme="luxury-gold"] .hero-name {
   text-shadow: 0 12px 28px rgba(198, 164, 91, 0.14);
 }
 
+body[data-theme="luxury-gold"] .mempelai-intro .bismillah-title {
+  max-width: 100%;
+  font-size: clamp(1.72rem, 2.25vw, 2.22rem);
+  line-height: 1.12;
+  letter-spacing: 0.045em;
+  white-space: normal;
+  overflow-wrap: normal;
+  word-break: normal;
+  text-wrap: balance;
+}
+
+body[data-theme="luxury-gold"] .profile h3 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.58rem, 2.15vw, 2.04rem);
+  line-height: 1.14;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
 body[data-theme="luxury-gold"] .section h2 {
   letter-spacing: var(--heading-letter-spacing);
   text-transform: uppercase;
