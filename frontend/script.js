@@ -58,6 +58,7 @@ const giftSectionSubtitle = document.getElementById("giftSectionSubtitle");
 const giftCategoryTabs = document.getElementById("giftCategoryTabs");
 const giftAccountsList = document.getElementById("giftAccountsList");
 const hostIntroBlock = document.getElementById("pengundang");
+const hostSectionLabel = document.getElementById("hostSectionLabel");
 const hostNamesText = document.getElementById("hostNamesText");
 const invitationLead = document.getElementById("invitationLead");
 
@@ -484,6 +485,12 @@ function getInvitationDisplayTitle() {
   if (eventType === "general") return "Undangan Acara";
   if (eventType === "wedding_reception") return "Undangan Resepsi";
   return String(currentConfig.heroOverline || currentConfig.seoTitle || "Undangan").trim();
+}
+
+function getHostSectionLabel(hostMode) {
+  if (hostMode === "family") return "Keluarga yang Mengundang";
+  if (hostMode === "custom") return "Pengundang";
+  return "Mengundang";
 }
 
 function applyHeroIdentity() {
@@ -1150,6 +1157,7 @@ function applyWeddingConfig() {
   const relationText = String(currentConfig.coupleRelationText || "putra-putri kami").trim();
   const receptionLead = `Dengan hormat kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri resepsi pernikahan ${relationText}.`;
   if (hostIntroBlock) hostIntroBlock.hidden = hostMode === "couple" || !hostNames.length;
+  if (hostSectionLabel) hostSectionLabel.textContent = getHostSectionLabel(hostMode);
   if (hostNamesText) hostNamesText.textContent = hostNames.join(" bersama ");
   if (invitationLead) invitationLead.textContent = String(currentConfig.hostIntroText || "").trim() || (hostMode === "couple" ? defaultLead : receptionLead);
 
