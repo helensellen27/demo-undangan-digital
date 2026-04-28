@@ -63,6 +63,20 @@ body[data-theme="royal"] .section h2::after {
   background: linear-gradient(90deg, rgba(53, 93, 128, 0.42), rgba(187, 163, 107, 0.82), transparent);
 }
 
+body[data-theme="royal"] .host-invitation-section #hostNamesText {
+  max-width: min(100%, 280px);
+  font-size: clamp(1.86rem, 4vw, 2.85rem);
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+body[data-theme="royal"] .host-invitation-section #hostNamesText::before,
+body[data-theme="royal"] .host-invitation-section #hostNamesText::after {
+  content: none;
+  display: none;
+}
+
 body[data-theme="royal"] .card,
 body[data-theme="royal"] .gallery-section {
   outline: 1px solid rgba(187, 163, 107, 0.28);
@@ -230,6 +244,13 @@ body[data-theme="royal"] .gift-copy-btn:hover {
     letter-spacing: 0.035em;
   }
 
+  body[data-theme="royal"] .host-invitation-section #hostNamesText {
+    max-width: min(100%, 280px);
+    font-size: clamp(1.38rem, 6.7vw, 1.9rem);
+    line-height: 1.44;
+    letter-spacing: 0.02em;
+  }
+
   body[data-theme="royal"] .lead {
     max-width: 32ch;
   }
@@ -255,5 +276,11 @@ body[data-theme="royal"] .gift-copy-btn:hover {
     height: 1px;
     margin: 14px auto 0;
     background: linear-gradient(90deg, transparent, rgba(187, 163, 107, 0.82), rgba(53, 93, 128, 0.5), transparent);
+  }
+
+  body[data-theme="royal"] .host-invitation-section #hostNamesText::before,
+  body[data-theme="royal"] .host-invitation-section #hostNamesText::after {
+    content: none;
+    display: none;
   }
 }

@@ -125,6 +125,18 @@ body[data-theme="luxury-gold"] .section h2::after {
     linear-gradient(90deg, transparent, rgba(198, 164, 91, 0.74), transparent);
 }
 
+body[data-theme="luxury-gold"] .host-invitation-section #hostNamesText {
+  max-width: min(100%, 280px);
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+body[data-theme="luxury-gold"] .host-invitation-section #hostNamesText::before,
+body[data-theme="luxury-gold"] .host-invitation-section #hostNamesText::after {
+  content: none;
+  display: none;
+}
+
 body[data-theme="luxury-gold"] .card,
 body[data-theme="luxury-gold"] .gallery-section {
   outline: 1px solid rgba(198, 164, 91, 0.28);
@@ -355,5 +367,12 @@ body[data-theme="luxury-gold"] .leaf {
 @media (max-width: 520px) {
   body[data-theme="luxury-gold"] .section h2 {
     letter-spacing: 0.055em;
+  }
+
+  body[data-theme="luxury-gold"] .host-invitation-section #hostNamesText {
+    max-width: min(100%, 280px);
+    font-size: clamp(1.38rem, 6.7vw, 1.9rem);
+    line-height: 1.44;
+    letter-spacing: 0.02em;
   }
 }

@@ -60,6 +60,18 @@ body[data-theme="rose"] .section h2::after {
   border-radius: 999px;
 }
 
+body[data-theme="rose"] .host-invitation-section #hostNamesText {
+  max-width: min(100%, 280px);
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+body[data-theme="rose"] .host-invitation-section #hostNamesText::before,
+body[data-theme="rose"] .host-invitation-section #hostNamesText::after {
+  content: none;
+  display: none;
+}
+
 body[data-theme="rose"] .card,
 body[data-theme="rose"] .gallery-section {
   overflow: hidden;
@@ -351,6 +363,13 @@ body[data-theme="rose"] .hero-text-link {
 
   body[data-theme="rose"] .section h2 {
     letter-spacing: 0.035em;
+  }
+
+  body[data-theme="rose"] .host-invitation-section #hostNamesText {
+    max-width: min(100%, 280px);
+    font-size: clamp(1.38rem, 6.7vw, 1.9rem);
+    line-height: 1.44;
+    letter-spacing: 0.02em;
   }
 
   body[data-theme="rose"] .mempelai-intro,

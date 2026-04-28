@@ -1003,7 +1003,7 @@ h3 {
     linear-gradient(180deg, rgba(255, 252, 248, 0.94), rgba(255, 247, 240, 0.86));
 }
 
-.host-invitation-section h2 {
+.host-invitation-section #hostNamesText {
   margin: 12px auto 0;
   max-width: min(100%, 280px);
   text-align: center;
@@ -1016,7 +1016,13 @@ h3 {
   text-wrap: balance;
 }
 
-.host-invitation-section h2 span {
+.host-invitation-section #hostNamesText::before,
+.host-invitation-section #hostNamesText::after {
+  content: none;
+  display: none;
+}
+
+.host-invitation-section #hostNamesText span {
   display: block;
   white-space: nowrap;
 }
@@ -2755,10 +2761,11 @@ body.theme-motion-off .hero-cloud-photo {
     line-height: 1.04;
   }
 
-  .host-invitation-section h2 {
-    max-width: 100%;
-    font-size: clamp(1.46rem, 7vw, 2rem);
-    line-height: 1.38;
+  .host-invitation-section #hostNamesText {
+    max-width: min(100%, 280px);
+    font-size: clamp(1.38rem, 6.7vw, 1.9rem);
+    line-height: 1.44;
+    letter-spacing: 0.02em;
   }
 
   .host-invitation-section {

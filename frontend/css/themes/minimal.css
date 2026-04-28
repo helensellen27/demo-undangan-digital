@@ -117,6 +117,18 @@ body[data-theme="minimal"] .section h2::after {
   background: rgba(72, 86, 64, 0.46);
 }
 
+body[data-theme="minimal"] .host-invitation-section #hostNamesText {
+  max-width: min(100%, 280px);
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+body[data-theme="minimal"] .host-invitation-section #hostNamesText::before,
+body[data-theme="minimal"] .host-invitation-section #hostNamesText::after {
+  content: none;
+  display: none;
+}
+
 body[data-theme="minimal"] .card,
 body[data-theme="minimal"] .gallery-section {
   background: transparent;
