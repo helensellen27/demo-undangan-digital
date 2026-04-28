@@ -920,6 +920,15 @@ h3 {
     grid-row: 1 / span 4;
     margin-top: 0;
   }
+
+  .mempelai-intro.is-profile-only {
+    display: block;
+  }
+
+  .mempelai-intro.is-profile-only .couple-grid {
+    max-width: 760px;
+    margin: 0 auto;
+  }
 }
 
 .section-kicker {
@@ -964,6 +973,12 @@ h3 {
   line-height: 1.95;
 }
 
+.mempelai-intro.is-profile-only > .section-kicker,
+.mempelai-intro.is-profile-only > .bismillah-title,
+.mempelai-intro.is-profile-only > .lead {
+  display: none;
+}
+
 .host-invitation-section {
   max-width: 780px;
   margin-inline: auto;
@@ -1005,18 +1020,6 @@ h3 {
   font-family: var(--font-body);
   font-size: 0.98rem;
   line-height: 1.86;
-}
-
-.host-couple-names {
-  margin: 24px auto 0;
-  font-family: var(--font-display);
-  font-size: clamp(2.35rem, 5.4vw, 3.7rem);
-  line-height: 1;
-  font-weight: 500;
-  color: var(--text);
-  letter-spacing: 0;
-  text-align: center;
-  text-wrap: balance;
 }
 
 .host-invitation-section .section-kicker,
@@ -2746,12 +2749,6 @@ body.theme-motion-off .hero-cloud-photo {
     margin-top: 22px;
     font-size: 0.9rem;
     line-height: 1.76;
-  }
-
-  .host-couple-names {
-    margin-top: 18px;
-    font-size: clamp(2.05rem, 12vw, 3rem);
-    line-height: 1;
   }
 
   .subtitle {

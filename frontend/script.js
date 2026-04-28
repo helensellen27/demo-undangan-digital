@@ -57,11 +57,11 @@ const giftSectionTitle = document.getElementById("giftSectionTitle");
 const giftSectionSubtitle = document.getElementById("giftSectionSubtitle");
 const giftCategoryTabs = document.getElementById("giftCategoryTabs");
 const giftAccountsList = document.getElementById("giftAccountsList");
+const coupleSection = document.getElementById("mempelai");
 const hostIntroBlock = document.getElementById("pengundang");
 const hostSectionLabel = document.getElementById("hostSectionLabel");
 const hostNamesText = document.getElementById("hostNamesText");
 const invitationLead = document.getElementById("invitationLead");
-const hostCoupleNames = document.getElementById("hostCoupleNames");
 
 const lightbox = document.createElement("div");
 lightbox.className = "gallery-lightbox";
@@ -534,6 +534,16 @@ function renderHostNames(names) {
   hostNamesText.innerHTML = lines.map((line, index) => (
     `<span>${index > 0 ? "&amp; " : ""}${escapeHtml(line)}</span>`
   )).join("");
+}
+
+function getFormattedHostNames(names) {
+  const first = formatSingleParentName(names[0] || "");
+  const second = formatSingleParentName(names[1] || "");
+  const singleCoupleMatch = first.match(/^(.*?)(?:\s+&\s+|\s+dan\s+|\s+)(Ibu\s+.+)$/i);
+  if (names.length === 1 && singleCoupleMatch) {
+    return `${singleCoupleMatch[1]} & ${formatSingleParentName(singleCoupleMatch[2])}`;
+  }
+  return [first, second].filter(Boolean).join(" & ");
 }
 
 function applyHeroIdentity() {
@@ -1191,21 +1201,22 @@ function applyWeddingConfig() {
 
   setText("brideFullName", currentConfig.brideFullName);
   setText("groomFullName", currentConfig.groomFullName);
-  setText("brideParents", currentConfig.brideParents);
-  setText("groomParents", currentConfig.groomParents);
 
   const hostMode = normalizeHostMode(currentConfig.hostMode);
   const hostNames = normalizeHostNames(currentConfig.hostNames);
+  const hasParentHost = hostMode !== "couple" && hostNames.length > 0;
   const defaultLead = "Assalamu'alaikum Warahmatullahi Wabarakatuh. Dengan memohon rahmat dan ridho Allah ﷻ, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di hari bahagia kami.";
   const relationText = getRelationPhrase(hostMode, currentConfig.coupleRelationText);
   const receptionLead = `Dengan penuh rasa syukur dan kebahagiaan, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan memberikan doa restu dalam acara resepsi pernikahan ${relationText}:`;
-  if (hostIntroBlock) hostIntroBlock.hidden = hostMode === "couple" || !hostNames.length;
+  if (coupleSection) coupleSection.classList.toggle("is-profile-only", hasParentHost);
+  if (hostIntroBlock) hostIntroBlock.hidden = !hasParentHost;
   if (hostSectionLabel) hostSectionLabel.textContent = getHostSectionLabel(hostMode);
   renderHostNames(hostNames);
   if (invitationLead) invitationLead.textContent = String(currentConfig.hostIntroText || "").trim() || (hostMode === "couple" ? defaultLead : receptionLead);
-  if (hostCoupleNames) {
-    hostCoupleNames.textContent = `${currentConfig.brideShortName || "Mempelai"} & ${currentConfig.groomShortName || "Mempelai"}`;
-  }
+
+  const formattedHostNames = getFormattedHostNames(hostNames);
+  setText("brideParents", hostMode === "bride_parents" && formattedHostNames ? `Putri dari ${formattedHostNames}` : currentConfig.brideParents);
+  setText("groomParents", hostMode === "groom_parents" && formattedHostNames ? `Putra dari ${formattedHostNames}` : currentConfig.groomParents);
 
   setHtml("quranAyatArab", currentConfig.quranVerseArabic);
   setText("quranAyatTrans", currentConfig.quranVerseTranslation);
