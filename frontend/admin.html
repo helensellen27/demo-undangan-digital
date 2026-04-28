@@ -108,11 +108,58 @@
           </select>
         </label>
         <label>Judul Atas Hero (contoh: Wedding Invitation)<input id="heroOverline" type="text" /></label>
+        <label>
+          Jenis Undangan
+          <select id="eventType">
+            <option value="wedding">Pernikahan Lengkap</option>
+            <option value="wedding_reception">Resepsi Pernikahan</option>
+            <option value="family_invitation">Undangan Keluarga</option>
+            <option value="general">Acara Umum</option>
+          </select>
+        </label>
+        <label>
+          Diundang Oleh
+          <select id="hostMode">
+            <option value="couple">Mempelai</option>
+            <option value="bride_parents">Orang Tua Mempelai Wanita</option>
+            <option value="groom_parents">Orang Tua Mempelai Pria</option>
+            <option value="both_families">Kedua Keluarga</option>
+            <option value="family">Keluarga Besar</option>
+            <option value="custom">Custom</option>
+          </select>
+        </label>
+        <label>Nama Pengundang
+          <textarea id="hostNames" rows="2" placeholder="Bapak Ahmad & Ibu Siti&#10;Bapak Rahman & Ibu Lina"></textarea>
+        </label>
+        <label>Teks Pembuka Pengundang
+          <textarea id="hostIntroText" rows="2" placeholder="Dengan hormat kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri resepsi pernikahan putra-putri kami."></textarea>
+        </label>
+        <label>Relasi Mempelai<input id="coupleRelationText" type="text" placeholder="putra-putri kami" /></label>
         <label>Tanggal & Lokasi Hero<input id="heroDatePlace" type="text" /></label>
         <label>Tanggal Hero Mulai<input id="heroDateStart" type="date" /></label>
         <label>Tanggal Hero Selesai (opsional)<input id="heroDateEnd" type="date" /></label>
         <label>Kota/Lokasi Hero<input id="heroDateCity" type="text" placeholder="Bogor" /></label>
         <label>Footer Names<input id="footerNames" type="text" /></label>
+      </div>
+
+      <div class="admin-subcard">
+        <div class="section-head">
+          <div>
+            <p class="section-label">Tampilan Section</p>
+            <h3>Aktifkan Elemen Undangan</h3>
+          </div>
+        </div>
+        <div class="grid two">
+          <label class="inline-check"><input id="sectionCouple" type="checkbox" /> Mempelai</label>
+          <label class="inline-check"><input id="sectionEvent" type="checkbox" /> Detail Acara</label>
+          <label class="inline-check"><input id="sectionMap" type="checkbox" /> Peta Lokasi</label>
+          <label class="inline-check"><input id="sectionGallery" type="checkbox" /> Galeri</label>
+          <label class="inline-check"><input id="sectionLoveStory" type="checkbox" /> Love Story</label>
+          <label class="inline-check"><input id="sectionFaith" type="checkbox" /> Doa, Ayat, dan Hadist</label>
+          <label class="inline-check"><input id="sectionGift" type="checkbox" /> Gift</label>
+          <label class="inline-check"><input id="sectionRsvp" type="checkbox" /> RSVP</label>
+          <label class="inline-check"><input id="sectionWishes" type="checkbox" /> Ucapan Tamu</label>
+        </div>
       </div>
 
       <div class="admin-subcard">

@@ -51,6 +51,46 @@ function sharedNormalizeBoolean(value, fallback = false) {
   return ["1", "true", "yes", "y", "on"].includes(text);
 }
 
+function sharedNormalizeEventType(value) {
+  const eventType = String(value || "").trim().toLowerCase();
+  return ["wedding", "wedding_reception", "family_invitation", "general"].includes(eventType) ? eventType : "wedding";
+}
+
+function sharedNormalizeHostMode(value) {
+  const hostMode = String(value || "").trim().toLowerCase();
+  return ["couple", "bride_parents", "groom_parents", "both_families", "family", "custom"].includes(hostMode) ? hostMode : "couple";
+}
+
+function sharedNormalizeHostNames(input) {
+  if (Array.isArray(input)) {
+    return input.map((item) => String(item || "").trim()).filter(Boolean);
+  }
+  return String(input || "")
+    .split(/\r?\n|;/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function sharedNormalizeSectionVisibility(input = {}, fallback = {}) {
+  const source = parseJsonValue(input, {});
+  const base = {
+    couple: true,
+    event: true,
+    map: true,
+    gallery: true,
+    loveStory: true,
+    faith: true,
+    gift: true,
+    rsvp: true,
+    wishes: true,
+    ...((fallback && typeof fallback === "object") ? fallback : {})
+  };
+  return Object.keys(base).reduce((result, key) => {
+    result[key] = sharedNormalizeBoolean(source && source[key] !== undefined ? source[key] : base[key], true);
+    return result;
+  }, {});
+}
+
 function sharedClampPercent(value, fallback = 50) {
   const num = Number(value);
   if (!Number.isFinite(num)) return fallback;
@@ -262,6 +302,20 @@ const fields = {
   seoDescription: document.getElementById("seoDescription"),
   themeName: document.getElementById("themeName"),
   heroOverline: document.getElementById("heroOverline"),
+  eventType: document.getElementById("eventType"),
+  hostMode: document.getElementById("hostMode"),
+  hostNames: document.getElementById("hostNames"),
+  hostIntroText: document.getElementById("hostIntroText"),
+  coupleRelationText: document.getElementById("coupleRelationText"),
+  sectionCouple: document.getElementById("sectionCouple"),
+  sectionEvent: document.getElementById("sectionEvent"),
+  sectionMap: document.getElementById("sectionMap"),
+  sectionGallery: document.getElementById("sectionGallery"),
+  sectionLoveStory: document.getElementById("sectionLoveStory"),
+  sectionFaith: document.getElementById("sectionFaith"),
+  sectionGift: document.getElementById("sectionGift"),
+  sectionRsvp: document.getElementById("sectionRsvp"),
+  sectionWishes: document.getElementById("sectionWishes"),
   brideShortName: document.getElementById("brideShortName"),
   groomShortName: document.getElementById("groomShortName"),
   brideFullName: document.getElementById("brideFullName"),
@@ -1361,6 +1415,22 @@ function normalizeThemeName(value) {
   return sharedNormalizeThemeName(value);
 }
 
+function normalizeEventType(value) {
+  return sharedNormalizeEventType(value);
+}
+
+function normalizeHostMode(value) {
+  return sharedNormalizeHostMode(value);
+}
+
+function normalizeHostNames(input) {
+  return sharedNormalizeHostNames(input);
+}
+
+function normalizeSectionVisibility(input, fallback) {
+  return sharedNormalizeSectionVisibility(input, fallback);
+}
+
 function clampPercent(value, fallback = 50) {
   return sharedClampPercent(value, fallback);
 }
@@ -1436,6 +1506,22 @@ function readConfigFromForm() {
     seoDescription: fields.seoDescription.value.trim(),
     themeName: normalizeThemeName(fields.themeName.value),
     heroOverline: fields.heroOverline.value.trim(),
+    eventType: normalizeEventType(fields.eventType.value),
+    hostMode: normalizeHostMode(fields.hostMode.value),
+    hostNames: normalizeHostNames(fields.hostNames.value),
+    hostIntroText: fields.hostIntroText.value.trim(),
+    coupleRelationText: fields.coupleRelationText.value.trim(),
+    sectionVisibility: {
+      couple: Boolean(fields.sectionCouple && fields.sectionCouple.checked),
+      event: Boolean(fields.sectionEvent && fields.sectionEvent.checked),
+      map: Boolean(fields.sectionMap && fields.sectionMap.checked),
+      gallery: Boolean(fields.sectionGallery && fields.sectionGallery.checked),
+      loveStory: Boolean(fields.sectionLoveStory && fields.sectionLoveStory.checked),
+      faith: Boolean(fields.sectionFaith && fields.sectionFaith.checked),
+      gift: Boolean(fields.sectionGift && fields.sectionGift.checked),
+      rsvp: Boolean(fields.sectionRsvp && fields.sectionRsvp.checked),
+      wishes: Boolean(fields.sectionWishes && fields.sectionWishes.checked)
+    },
     brideShortName: fields.brideShortName.value.trim(),
     groomShortName: fields.groomShortName.value.trim(),
     brideFullName: fields.brideFullName.value.trim(),
@@ -1548,6 +1634,23 @@ function fillForm(config) {
   fields.seoDescription.value = safeConfig.seoDescription || "";
   fields.themeName.value = normalizeThemeName(safeConfig.themeName || ADMIN_WEDDING_CONFIG.themeName || "botanical");
   fields.heroOverline.value = safeConfig.heroOverline || "";
+  fields.eventType.value = normalizeEventType(safeConfig.eventType || ADMIN_WEDDING_CONFIG.eventType || "wedding");
+  fields.hostMode.value = normalizeHostMode(safeConfig.hostMode || ADMIN_WEDDING_CONFIG.hostMode || "couple");
+  fields.hostNames.value = normalizeHostNames(
+    safeConfig.hostNames !== undefined ? safeConfig.hostNames : ADMIN_WEDDING_CONFIG.hostNames
+  ).join("\n");
+  fields.hostIntroText.value = safeConfig.hostIntroText || ADMIN_WEDDING_CONFIG.hostIntroText || "";
+  fields.coupleRelationText.value = safeConfig.coupleRelationText || ADMIN_WEDDING_CONFIG.coupleRelationText || "putra-putri kami";
+  const sectionVisibility = normalizeSectionVisibility(safeConfig.sectionVisibility, ADMIN_WEDDING_CONFIG.sectionVisibility);
+  fields.sectionCouple.checked = sectionVisibility.couple;
+  fields.sectionEvent.checked = sectionVisibility.event;
+  fields.sectionMap.checked = sectionVisibility.map;
+  fields.sectionGallery.checked = sectionVisibility.gallery;
+  fields.sectionLoveStory.checked = sectionVisibility.loveStory;
+  fields.sectionFaith.checked = sectionVisibility.faith;
+  fields.sectionGift.checked = sectionVisibility.gift;
+  fields.sectionRsvp.checked = sectionVisibility.rsvp;
+  fields.sectionWishes.checked = sectionVisibility.wishes;
   fields.brideShortName.value = safeConfig.brideShortName || "";
   fields.groomShortName.value = safeConfig.groomShortName || "";
   fields.brideFullName.value = safeConfig.brideFullName || "";

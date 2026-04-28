@@ -1,5 +1,5 @@
 import { setMetaDescription as updateMetaDescription } from "./js/shared/meta.js";
-import { createInitialWeddingConfig, healMisplacedPhotoConfig as sharedHealMisplacedPhotoConfig, mergeWeddingConfig, normalizeThemeName as sharedNormalizeThemeName } from "./js/shared/config-normalizer.js";
+import { createInitialWeddingConfig, healMisplacedPhotoConfig as sharedHealMisplacedPhotoConfig, mergeWeddingConfig, normalizeHostMode as sharedNormalizeHostMode, normalizeHostNames as sharedNormalizeHostNames, normalizeSectionVisibility as sharedNormalizeSectionVisibility, normalizeThemeName as sharedNormalizeThemeName } from "./js/shared/config-normalizer.js";
 import { BANK_CATALOG, findProviderByName } from "./js/shared/catalogs.js";
 import { extractDriveFileId as sharedExtractDriveFileId, isLikelyDriveFileId as sharedIsLikelyDriveFileId } from "./js/shared/drive.js";
 import { cleanPhotoArray as sharedCleanPhotoArray, clampPercent as sharedClampPercent, normalizeBoolean as sharedNormalizeBoolean, normalizeCountString as sharedNormalizeCountString, normalizePositiveNumberString as sharedNormalizePositiveNumberString } from "./js/shared/utils.js";
@@ -55,6 +55,9 @@ const giftSectionTitle = document.getElementById("giftSectionTitle");
 const giftSectionSubtitle = document.getElementById("giftSectionSubtitle");
 const giftCategoryTabs = document.getElementById("giftCategoryTabs");
 const giftAccountsList = document.getElementById("giftAccountsList");
+const hostIntroBlock = document.getElementById("hostIntroBlock");
+const hostNamesText = document.getElementById("hostNamesText");
+const invitationLead = document.getElementById("invitationLead");
 
 const lightbox = document.createElement("div");
 lightbox.className = "gallery-lightbox";
@@ -220,6 +223,8 @@ function setAnimatedName(id, value, baseDelayMs = 0) {
     return;
   }
 
+  el.classList.add("hero-name");
+
   if (prefersReducedMotion) {
     el.textContent = text;
     return;
@@ -229,7 +234,6 @@ function setAnimatedName(id, value, baseDelayMs = 0) {
   el.dataset.animatedText = text;
   el.setAttribute("aria-label", text);
   el.textContent = "";
-  el.classList.add("hero-name");
 
   const fragment = document.createDocumentFragment();
   Array.from(text).forEach((char, idx) => {
@@ -429,6 +433,47 @@ function normalizePositiveNumberString(value) {
 
 function normalizeThemeName(value) {
   return sharedNormalizeThemeName(value);
+}
+
+function normalizeHostMode(value) {
+  return sharedNormalizeHostMode(value);
+}
+
+function normalizeHostNames(input) {
+  return sharedNormalizeHostNames(input);
+}
+
+function normalizeSectionVisibility(input, fallback) {
+  return sharedNormalizeSectionVisibility(input, fallback);
+}
+
+function isSectionVisible(key) {
+  const visibility = normalizeSectionVisibility(currentConfig.sectionVisibility, WEDDING_CONFIG.sectionVisibility);
+  return visibility[key] !== false;
+}
+
+function setSectionDisplay(selector, key) {
+  const el = document.querySelector(selector);
+  if (el) el.style.display = isSectionVisible(key) ? "" : "none";
+}
+
+function applySectionVisibility() {
+  setSectionDisplay("#mempelai", "couple");
+  setSectionDisplay("#acara", "event");
+  setSectionDisplay("#peta", "map");
+  setSectionDisplay("#galeri", "gallery");
+  setSectionDisplay("#loveStory", "loveStory");
+  setSectionDisplay("#faithSection", "faith");
+  setSectionDisplay("#giftSection", "gift");
+  setSectionDisplay("#rsvp", "rsvp");
+
+  const wishesPanel = document.querySelector(".wishes-panel");
+  if (wishesPanel) wishesPanel.style.display = isSectionVisible("wishes") ? "" : "none";
+
+  document.querySelectorAll("[data-section-nav]").forEach((link) => {
+    const key = link.getAttribute("data-section-nav");
+    link.style.display = isSectionVisible(key) ? "" : "none";
+  });
 }
 
 function applyThemeName(value) {
@@ -947,7 +992,7 @@ function renderGiftSection() {
 
   const enabled = normalizeBoolean(currentConfig.giftEnabled, false);
   const accounts = normalizeGiftAccounts(currentConfig.giftAccounts).filter((item) => item.isActive);
-  if (!enabled || !accounts.length) {
+  if (!isSectionVisible("gift") || !enabled || !accounts.length) {
     giftSection.style.display = "none";
     if (giftCategoryTabs) giftCategoryTabs.innerHTML = "";
     return;
@@ -1041,6 +1086,7 @@ function renderGiftSection() {
 
 function applyWeddingConfig() {
   applyThemeName(currentConfig.themeName);
+  applySectionVisibility();
   setBrandMonogram(currentConfig.brandInitials);
   setText("heroOverline", currentConfig.heroOverline || "Wedding Invitation");
   setAnimatedName("heroBrideShort", currentConfig.brideShortName, 140);
@@ -1057,6 +1103,15 @@ function applyWeddingConfig() {
   setText("brideParents", currentConfig.brideParents);
   setText("groomParents", currentConfig.groomParents);
   setText("footerNames", currentConfig.footerNames);
+
+  const hostMode = normalizeHostMode(currentConfig.hostMode);
+  const hostNames = normalizeHostNames(currentConfig.hostNames);
+  const defaultLead = "Assalamu'alaikum Warahmatullahi Wabarakatuh. Dengan memohon rahmat dan ridho Allah ﷻ, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di hari bahagia kami.";
+  const relationText = String(currentConfig.coupleRelationText || "putra-putri kami").trim();
+  const receptionLead = `Dengan hormat kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri resepsi pernikahan ${relationText}.`;
+  if (hostIntroBlock) hostIntroBlock.hidden = hostMode === "couple" || !hostNames.length;
+  if (hostNamesText) hostNamesText.textContent = hostNames.join(" bersama ");
+  if (invitationLead) invitationLead.textContent = String(currentConfig.hostIntroText || "").trim() || (hostMode === "couple" ? defaultLead : receptionLead);
 
   setHtml("quranAyatArab", currentConfig.quranVerseArabic);
   setText("quranAyatTrans", currentConfig.quranVerseTranslation);

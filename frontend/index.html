@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://drive.google.com" crossorigin>
   <link rel="preconnect" href="https://drive.usercontent.google.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Anonymous+Pro:wght@400;700&family=Cormorant+Garamond:wght@500;600;700&family=Forum&family=Great+Vibes&family=Manrope:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&family=Mr+Dafoe&family=Open+Sans:wght@400;600;700&family=Pacifico&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@500;600;700&family=Forum&family=Great+Vibes&family=Manrope:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&family=Mr+Dafoe&family=Open+Sans:wght@400;600;700&family=Pinyon+Script&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="css/themes/botanical.css" />
   <link rel="stylesheet" href="css/themes/rose.css" />
@@ -51,9 +51,9 @@
   <header class="topbar">
     <a href="#home" class="brand" id="brandInitials">A & F</a>
     <nav>
-      <a href="#mempelai">Mempelai</a>
-      <a href="#acara">Acara</a>
-      <a href="#rsvp">RSVP</a>
+      <a href="#mempelai" data-section-nav="couple">Mempelai</a>
+      <a href="#acara" data-section-nav="event">Acara</a>
+      <a href="#rsvp" data-section-nav="rsvp">RSVP</a>
     </nav>
   </header>
 
@@ -93,7 +93,11 @@
     <section id="mempelai" class="section card reveal mempelai-intro">
       <p class="section-kicker">&#x628;&#x650;&#x633;&#x652;&#x645;&#x650; &#x671;&#x644;&#x644;&#x64E;&#x651;&#x647;&#x650;</p>
       <h2 class="bismillah-title">Bismillahirrahmanirrahim</h2>
-      <p class="lead">
+      <div id="hostIntroBlock" class="host-intro" hidden>
+        <p class="section-kicker">Turut Mengundang</p>
+        <h3 id="hostNamesText"></h3>
+      </div>
+      <p id="invitationLead" class="lead">
         Assalamu'alaikum Warahmatullahi Wabarakatuh. Dengan memohon rahmat dan ridho Allah ﷻ,
         kami mengundang Bapak/Ibu/Saudara/i untuk hadir di hari bahagia kami.
       </p>
@@ -199,7 +203,7 @@
       </div>
     </section>
 
-    <section class="section card reveal quran-card">
+    <section id="faithSection" class="section card reveal quran-card">
       <h2>Doa, Ayat, dan Hadist Pernikahan</h2>
       <article id="quranBlock" class="faith-block">
         <h3 class="faith-title">Ayat Al-Quran</h3>

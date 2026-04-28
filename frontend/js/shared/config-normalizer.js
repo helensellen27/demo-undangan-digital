@@ -8,11 +8,57 @@ export function normalizeThemeName(value) {
   return ["botanical", "rose", "royal", "minimal", "luxury-gold"].includes(theme) ? theme : "botanical";
 }
 
+export function normalizeEventType(value) {
+  const eventType = String(value || "").trim().toLowerCase();
+  return ["wedding", "wedding_reception", "family_invitation", "general"].includes(eventType) ? eventType : "wedding";
+}
+
+export function normalizeHostMode(value) {
+  const hostMode = String(value || "").trim().toLowerCase();
+  return ["couple", "bride_parents", "groom_parents", "both_families", "family", "custom"].includes(hostMode) ? hostMode : "couple";
+}
+
+export function normalizeHostNames(input) {
+  if (Array.isArray(input)) {
+    return input.map((item) => String(item || "").trim()).filter(Boolean);
+  }
+  return String(input || "")
+    .split(/\r?\n|;/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+export function normalizeSectionVisibility(input = {}, fallback = {}) {
+  const source = (input && typeof input === "object") ? input : {};
+  const base = {
+    couple: true,
+    event: true,
+    map: true,
+    gallery: true,
+    loveStory: true,
+    faith: true,
+    gift: true,
+    rsvp: true,
+    wishes: true,
+    ...((fallback && typeof fallback === "object") ? fallback : {})
+  };
+  return Object.keys(base).reduce((result, key) => {
+    result[key] = normalizeBoolean(source[key] !== undefined ? source[key] : base[key], true);
+    return result;
+  }, {});
+}
+
 export function createInitialWeddingConfig(defaultConfig = {}) {
   return {
     ...defaultConfig,
     invitationBaseUrl: String(defaultConfig.invitationBaseUrl || "").trim(),
     themeName: normalizeThemeName(defaultConfig.themeName),
+    eventType: normalizeEventType(defaultConfig.eventType),
+    hostMode: normalizeHostMode(defaultConfig.hostMode),
+    hostNames: normalizeHostNames(defaultConfig.hostNames),
+    hostIntroText: String(defaultConfig.hostIntroText || "").trim(),
+    coupleRelationText: String(defaultConfig.coupleRelationText || "putra-putri kami").trim(),
+    sectionVisibility: normalizeSectionVisibility(defaultConfig.sectionVisibility),
     akad: { ...(defaultConfig.akad || {}) },
     resepsi: { ...(defaultConfig.resepsi || {}) },
     loveStoryPhotos: cleanPhotoArray(defaultConfig.loveStoryPhotos),
@@ -60,6 +106,17 @@ export function mergeWeddingConfig(baseConfig = {}, incomingConfig = {}, default
     ...incomingConfig,
     invitationBaseUrl: String(incomingConfig.invitationBaseUrl || baseConfig.invitationBaseUrl || defaultConfig.invitationBaseUrl || "").trim(),
     themeName: normalizeThemeName(incomingConfig.themeName || baseConfig.themeName || defaultConfig.themeName),
+    eventType: normalizeEventType(incomingConfig.eventType || baseConfig.eventType || defaultConfig.eventType),
+    hostMode: normalizeHostMode(incomingConfig.hostMode || baseConfig.hostMode || defaultConfig.hostMode),
+    hostNames: normalizeHostNames(
+      incomingConfig.hostNames !== undefined ? incomingConfig.hostNames : (baseConfig.hostNames !== undefined ? baseConfig.hostNames : defaultConfig.hostNames)
+    ),
+    hostIntroText: String(incomingConfig.hostIntroText || baseConfig.hostIntroText || defaultConfig.hostIntroText || "").trim(),
+    coupleRelationText: String(incomingConfig.coupleRelationText || baseConfig.coupleRelationText || defaultConfig.coupleRelationText || "putra-putri kami").trim(),
+    sectionVisibility: normalizeSectionVisibility(
+      incomingConfig.sectionVisibility || baseConfig.sectionVisibility,
+      defaultConfig.sectionVisibility
+    ),
     backgroundMusicUrl: incomingMusicUrl || baseMusicUrl,
     musicPlaybackMode: normalizeMusicPlaybackMode(
       incomingConfig.musicPlaybackMode || baseConfig.musicPlaybackMode || defaultConfig.musicPlaybackMode || "ordered"
