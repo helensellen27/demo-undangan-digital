@@ -960,11 +960,26 @@ h3 {
   margin: 8px auto 0;
   max-width: 820px;
   text-align: center;
-  font-family: var(--font-display);
-  font-size: clamp(2.05rem, 4.8vw, 3.5rem);
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.8rem, 6vw, 2.8rem);
   line-height: 1.08;
+  font-weight: 600;
   color: var(--text);
   text-wrap: balance;
+}
+
+#hostSectionLabel {
+  font-family: var(--font-accent);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+#invitationLead {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.75;
 }
 
 .host-invitation-section .section-kicker,
