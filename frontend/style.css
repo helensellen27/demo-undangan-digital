@@ -587,6 +587,24 @@ h1 {
   letter-spacing: 0;
 }
 
+.hero-title-block h1.is-single-title {
+  max-width: 100%;
+  margin: 0 auto;
+  line-height: 1;
+}
+
+.hero-title-block h1.is-single-title .hero-name {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+  font-size: clamp(3.15rem, 7.8vw, 5.8rem);
+  line-height: 1.02;
+  white-space: normal;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  text-wrap: balance;
+}
+
 h2 {
   position: relative;
   font-size: clamp(2.15rem, 4.6vw, 3.35rem);
@@ -2633,6 +2651,11 @@ body.theme-motion-off .hero-cloud-photo {
 
   h1 {
     font-size: clamp(3rem, 11vw, 4.2rem);
+  }
+
+  .hero-title-block h1.is-single-title .hero-name {
+    font-size: clamp(2.55rem, 13vw, 4rem);
+    line-height: 1.04;
   }
 
   .subtitle {

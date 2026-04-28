@@ -49,6 +49,7 @@ const openInvitationBtn = document.getElementById("openInvitationBtn");
 const gateNames = document.getElementById("gateNames");
 const gateDatePlace = document.getElementById("gateDatePlace");
 const gateGuestName = document.getElementById("gateGuestName");
+const heroTitleHeading = document.querySelector(".hero-title-block h1");
 const heroNameAmp = document.querySelector(".hero h1 .amp");
 const addToCalendarLink = document.getElementById("addToCalendarLink");
 const giftSection = document.getElementById("giftSection");
@@ -487,23 +488,31 @@ function getInvitationDisplayTitle() {
 
 function applyHeroIdentity() {
   const coupleVisible = isSectionVisible("couple");
+  const brideNameEl = getCachedElement("heroBrideShort");
   const groomNameEl = getCachedElement("heroGroomShort");
   const title = coupleVisible
     ? `${currentConfig.brideShortName || "Mempelai"} & ${currentConfig.groomShortName || "Mempelai"}`
     : getInvitationDisplayTitle();
 
   if (coupleVisible) {
+    if (heroTitleHeading) heroTitleHeading.classList.remove("is-single-title");
     if (heroNameAmp) heroNameAmp.style.display = "";
     if (groomNameEl) groomNameEl.style.display = "";
     setAnimatedName("heroBrideShort", currentConfig.brideShortName, 140);
     setAnimatedName("heroGroomShort", currentConfig.groomShortName, 420);
   } else {
+    if (heroTitleHeading) heroTitleHeading.classList.add("is-single-title");
+    if (brideNameEl) {
+      brideNameEl.classList.add("hero-name");
+      brideNameEl.textContent = title;
+      brideNameEl.removeAttribute("data-animated-text");
+      brideNameEl.setAttribute("aria-label", title);
+    }
     if (heroNameAmp) heroNameAmp.style.display = "none";
     if (groomNameEl) {
       groomNameEl.style.display = "none";
       groomNameEl.textContent = "";
     }
-    setAnimatedName("heroBrideShort", title, 140);
   }
 
   setText("gateNames", title);
