@@ -496,6 +496,42 @@ function getHostSectionLabel(hostMode) {
   return "Keluarga dari";
 }
 
+function titleCaseParentheses(value) {
+  return String(value || "").replace(/\(([^)]+)\)/g, (match, content) => {
+    const clean = String(content || "").trim();
+    if (!clean) return match;
+    return `(${clean.charAt(0).toUpperCase()}${clean.slice(1).toLowerCase()})`;
+  });
+}
+
+function formatSingleParentName(name) {
+  return titleCaseParentheses(name)
+    .replace(/\s*&\s*/g, " & ")
+    .replace(/\bibu\b/g, "Ibu")
+    .replace(/\bbapak\b/g, "Bapak")
+    .trim();
+}
+
+function renderHostNames(names) {
+  if (!hostNamesText) return;
+  const first = formatSingleParentName(names[0] || "");
+  const second = formatSingleParentName(names[1] || "");
+  const singleCoupleMatch = first.match(/^(.*?)(?:\s+&\s+|\s+dan\s+)(Ibu\s+.+)$/i);
+
+  if (names.length === 1 && singleCoupleMatch) {
+    hostNamesText.innerHTML = `
+      <span>${escapeHtml(singleCoupleMatch[1])}</span>
+      <span>&amp; ${escapeHtml(formatSingleParentName(singleCoupleMatch[2]))}</span>
+    `;
+    return;
+  }
+
+  const lines = [first, second].filter(Boolean);
+  hostNamesText.innerHTML = lines.map((line, index) => (
+    `<span>${index > 0 ? "&amp; " : ""}${escapeHtml(line)}</span>`
+  )).join("");
+}
+
 function applyHeroIdentity() {
   const coupleVisible = isSectionVisible("couple");
   const brideNameEl = getCachedElement("heroBrideShort");
@@ -1161,7 +1197,7 @@ function applyWeddingConfig() {
   const receptionLead = `Dengan hormat kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri resepsi pernikahan ${relationText}.`;
   if (hostIntroBlock) hostIntroBlock.hidden = hostMode === "couple" || !hostNames.length;
   if (hostSectionLabel) hostSectionLabel.textContent = getHostSectionLabel(hostMode);
-  if (hostNamesText) hostNamesText.textContent = hostNames.join(" bersama ");
+  renderHostNames(hostNames);
   if (invitationLead) invitationLead.textContent = String(currentConfig.hostIntroText || "").trim() || (hostMode === "couple" ? defaultLead : receptionLead);
 
   setHtml("quranAyatArab", currentConfig.quranVerseArabic);
