@@ -516,7 +516,7 @@ function renderHostNames(names) {
   if (!hostNamesText) return;
   const first = formatSingleParentName(names[0] || "");
   const second = formatSingleParentName(names[1] || "");
-  const singleCoupleMatch = first.match(/^(.*?)(?:\s+&\s+|\s+dan\s+)(Ibu\s+.+)$/i);
+  const singleCoupleMatch = first.match(/^(.*?)(?:\s+&\s+|\s+dan\s+|\s+)(Ibu\s+.+)$/i);
 
   if (names.length === 1 && singleCoupleMatch) {
     hostNamesText.innerHTML = `
