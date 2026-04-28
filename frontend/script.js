@@ -61,6 +61,7 @@ const hostIntroBlock = document.getElementById("pengundang");
 const hostSectionLabel = document.getElementById("hostSectionLabel");
 const hostNamesText = document.getElementById("hostNamesText");
 const invitationLead = document.getElementById("invitationLead");
+const hostCoupleNames = document.getElementById("hostCoupleNames");
 
 const lightbox = document.createElement("div");
 lightbox.className = "gallery-lightbox";
@@ -488,12 +489,15 @@ function getInvitationDisplayTitle() {
 }
 
 function getHostSectionLabel(hostMode) {
-  if (hostMode === "bride_parents") return "Putri dari";
-  if (hostMode === "groom_parents") return "Putra dari";
-  if (hostMode === "both_families") return "Putra-putri dari";
-  if (hostMode === "family") return "Keluarga dari";
-  if (hostMode === "custom") return "Atas nama";
-  return "Keluarga dari";
+  if (hostMode === "custom") return "Dengan hormat";
+  return "Kami yang berbahagia";
+}
+
+function getRelationPhrase(hostMode, fallback) {
+  if (hostMode === "bride_parents") return "putri kami";
+  if (hostMode === "groom_parents") return "putra kami";
+  if (hostMode === "both_families") return "putra-putri kami";
+  return String(fallback || "putra-putri kami").trim();
 }
 
 function titleCaseParentheses(value) {
@@ -1193,12 +1197,15 @@ function applyWeddingConfig() {
   const hostMode = normalizeHostMode(currentConfig.hostMode);
   const hostNames = normalizeHostNames(currentConfig.hostNames);
   const defaultLead = "Assalamu'alaikum Warahmatullahi Wabarakatuh. Dengan memohon rahmat dan ridho Allah ﷻ, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di hari bahagia kami.";
-  const relationText = String(currentConfig.coupleRelationText || "putra-putri kami").trim();
-  const receptionLead = `Dengan hormat kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri resepsi pernikahan ${relationText}.`;
+  const relationText = getRelationPhrase(hostMode, currentConfig.coupleRelationText);
+  const receptionLead = `Dengan penuh rasa syukur dan kebahagiaan, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan memberikan doa restu dalam acara resepsi pernikahan ${relationText}:`;
   if (hostIntroBlock) hostIntroBlock.hidden = hostMode === "couple" || !hostNames.length;
   if (hostSectionLabel) hostSectionLabel.textContent = getHostSectionLabel(hostMode);
   renderHostNames(hostNames);
   if (invitationLead) invitationLead.textContent = String(currentConfig.hostIntroText || "").trim() || (hostMode === "couple" ? defaultLead : receptionLead);
+  if (hostCoupleNames) {
+    hostCoupleNames.textContent = `${currentConfig.brideShortName || "Mempelai"} & ${currentConfig.groomShortName || "Mempelai"}`;
+  }
 
   setHtml("quranAyatArab", currentConfig.quranVerseArabic);
   setText("quranAyatTrans", currentConfig.quranVerseTranslation);

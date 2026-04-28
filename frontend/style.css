@@ -1000,6 +1000,17 @@ h3 {
   line-height: 1.75;
 }
 
+.host-couple-names {
+  margin: 20px auto 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.35rem, 8vw, 4rem);
+  line-height: 0.98;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: 0;
+  text-align: center;
+}
+
 .host-invitation-section .section-kicker,
 .host-invitation-section .lead {
   text-align: center;
