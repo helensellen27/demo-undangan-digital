@@ -57,7 +57,7 @@ const giftSectionTitle = document.getElementById("giftSectionTitle");
 const giftSectionSubtitle = document.getElementById("giftSectionSubtitle");
 const giftCategoryTabs = document.getElementById("giftCategoryTabs");
 const giftAccountsList = document.getElementById("giftAccountsList");
-const hostIntroBlock = document.getElementById("hostIntroBlock");
+const hostIntroBlock = document.getElementById("pengundang");
 const hostNamesText = document.getElementById("hostNamesText");
 const invitationLead = document.getElementById("invitationLead");
 
