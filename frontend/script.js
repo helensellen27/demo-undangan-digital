@@ -49,6 +49,7 @@ const openInvitationBtn = document.getElementById("openInvitationBtn");
 const gateNames = document.getElementById("gateNames");
 const gateDatePlace = document.getElementById("gateDatePlace");
 const gateGuestName = document.getElementById("gateGuestName");
+const heroNameAmp = document.querySelector(".hero h1 .amp");
 const addToCalendarLink = document.getElementById("addToCalendarLink");
 const giftSection = document.getElementById("giftSection");
 const giftSectionTitle = document.getElementById("giftSectionTitle");
@@ -474,6 +475,39 @@ function applySectionVisibility() {
     const key = link.getAttribute("data-section-nav");
     link.style.display = isSectionVisible(key) ? "" : "none";
   });
+}
+
+function getInvitationDisplayTitle() {
+  const eventType = String(currentConfig.eventType || "").trim().toLowerCase();
+  if (eventType === "family_invitation") return "Undangan Keluarga";
+  if (eventType === "general") return "Undangan Acara";
+  if (eventType === "wedding_reception") return "Undangan Resepsi";
+  return String(currentConfig.heroOverline || currentConfig.seoTitle || "Undangan").trim();
+}
+
+function applyHeroIdentity() {
+  const coupleVisible = isSectionVisible("couple");
+  const groomNameEl = getCachedElement("heroGroomShort");
+  const title = coupleVisible
+    ? `${currentConfig.brideShortName || "Mempelai"} & ${currentConfig.groomShortName || "Mempelai"}`
+    : getInvitationDisplayTitle();
+
+  if (coupleVisible) {
+    if (heroNameAmp) heroNameAmp.style.display = "";
+    if (groomNameEl) groomNameEl.style.display = "";
+    setAnimatedName("heroBrideShort", currentConfig.brideShortName, 140);
+    setAnimatedName("heroGroomShort", currentConfig.groomShortName, 420);
+  } else {
+    if (heroNameAmp) heroNameAmp.style.display = "none";
+    if (groomNameEl) {
+      groomNameEl.style.display = "none";
+      groomNameEl.textContent = "";
+    }
+    setAnimatedName("heroBrideShort", title, 140);
+  }
+
+  setText("gateNames", title);
+  setText("footerNames", coupleVisible ? currentConfig.footerNames : title);
 }
 
 function applyThemeName(value) {
@@ -1089,10 +1123,8 @@ function applyWeddingConfig() {
   applySectionVisibility();
   setBrandMonogram(currentConfig.brandInitials);
   setText("heroOverline", currentConfig.heroOverline || "Wedding Invitation");
-  setAnimatedName("heroBrideShort", currentConfig.brideShortName, 140);
-  setAnimatedName("heroGroomShort", currentConfig.groomShortName, 420);
+  applyHeroIdentity();
   setText("heroDatePlace", currentConfig.heroDatePlace);
-  setText("gateNames", `${currentConfig.brideShortName || "Mempelai"} & ${currentConfig.groomShortName || "Mempelai"}`);
   setText("gateDatePlace", currentConfig.heroDatePlace);
 
   setText("avatarBride", (currentConfig.brideShortName || "A").charAt(0).toUpperCase());
@@ -1102,7 +1134,6 @@ function applyWeddingConfig() {
   setText("groomFullName", currentConfig.groomFullName);
   setText("brideParents", currentConfig.brideParents);
   setText("groomParents", currentConfig.groomParents);
-  setText("footerNames", currentConfig.footerNames);
 
   const hostMode = normalizeHostMode(currentConfig.hostMode);
   const hostNames = normalizeHostNames(currentConfig.hostNames);
