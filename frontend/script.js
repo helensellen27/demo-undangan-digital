@@ -525,14 +525,15 @@ function renderHostNames(names) {
   if (names.length === 1 && singleCoupleMatch) {
     hostNamesText.innerHTML = `
       <span>${escapeHtml(singleCoupleMatch[1])}</span>
-      <span>&amp; ${escapeHtml(formatSingleParentName(singleCoupleMatch[2]))}</span>
+      <span class="host-name-separator">&amp;</span>
+      <span>${escapeHtml(formatSingleParentName(singleCoupleMatch[2]))}</span>
     `;
     return;
   }
 
   const lines = [first, second].filter(Boolean);
   hostNamesText.innerHTML = lines.map((line, index) => (
-    `<span>${index > 0 ? "&amp; " : ""}${escapeHtml(line)}</span>`
+    `${index > 0 ? '<span class="host-name-separator">&amp;</span>' : ""}<span>${escapeHtml(line)}</span>`
   )).join("");
 }
 

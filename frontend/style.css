@@ -1005,11 +1005,11 @@ h3 {
 
 .host-invitation-section h2 {
   margin: 12px auto 0;
-  max-width: min(100%, 520px);
+  max-width: min(100%, 280px);
   text-align: center;
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(2rem, 4vw, 3.05rem);
-  line-height: 1.2;
+  line-height: 1.5;
   font-weight: 600;
   letter-spacing: 0.02em;
   color: var(--text);
@@ -1019,6 +1019,12 @@ h3 {
 .host-invitation-section h2 span {
   display: block;
   white-space: nowrap;
+}
+
+.host-name-separator {
+  font-size: 0.82em;
+  line-height: 1.12;
+  color: var(--champagne);
 }
 
 #hostSectionLabel {
