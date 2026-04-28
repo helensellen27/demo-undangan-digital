@@ -488,9 +488,12 @@ function getInvitationDisplayTitle() {
 }
 
 function getHostSectionLabel(hostMode) {
-  if (hostMode === "family") return "Keluarga yang Mengundang";
-  if (hostMode === "custom") return "Pengundang";
-  return "Mengundang";
+  if (hostMode === "bride_parents") return "Putri dari";
+  if (hostMode === "groom_parents") return "Putra dari";
+  if (hostMode === "both_families") return "Putra-putri dari";
+  if (hostMode === "family") return "Keluarga dari";
+  if (hostMode === "custom") return "Atas nama";
+  return "Keluarga dari";
 }
 
 function applyHeroIdentity() {
