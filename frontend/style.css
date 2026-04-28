@@ -958,7 +958,7 @@ h3 {
 
 .host-invitation-section h2 {
   margin: 8px auto 0;
-  max-width: 320px;
+  max-width: min(100%, 360px);
   text-align: center;
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(1.8rem, 6vw, 2.8rem);
@@ -971,6 +971,7 @@ h3 {
 
 .host-invitation-section h2 span {
   display: block;
+  white-space: nowrap;
 }
 
 #hostSectionLabel {
@@ -2687,6 +2688,12 @@ body.theme-motion-off .hero-cloud-photo {
   .hero-title-block h1.is-single-title .hero-name {
     font-size: clamp(2.55rem, 13vw, 4rem);
     line-height: 1.04;
+  }
+
+  .host-invitation-section h2 {
+    max-width: 100%;
+    font-size: clamp(1.46rem, 7vw, 2rem);
+    line-height: 1.38;
   }
 
   .subtitle {
